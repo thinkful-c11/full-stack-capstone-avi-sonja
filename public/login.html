@@ -12,12 +12,23 @@
     <link rel="stylesheet" href="css/main.css">
 </head>
 <header>
-    <h1>Login</h1>
+    <h1>Cool Fun Name Here For This Thing</h1>
 </header>
 <div class="row">
     <div class="col-12">
         <body>
-            Login stuff here soon
+            <form class="login-form" action="/login/" method="post">
+              <!-- LOG IN HERE -->
+              <h2>Log In</h2>
+              <!-- USERNAME HERE -->
+              <label for="username-form">Username</label>
+              <input type="username" name="user-username" id="user-username" placeholder="Alice" required/>
+              <!-- PASSWORD -->
+              <label for="password-form">Password</label>
+              <input type="password" name="user-password" id="user-password" placeholder="w0Nd3r1@/\/D" required/>
+              <!-- SUBMIT TO LOG IN BUTTON -->
+              <button type="submit" formaction="/login/">Submit</button>
+            </form>
         </body>
     </div>
 </div>
