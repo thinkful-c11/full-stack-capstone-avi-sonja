@@ -1,0 +1,23 @@
+{
+  "name": "full-stack-capstone-avi-sonja",
+  "version": "1.0.0",
+  "description": "",
+  "main": "config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha test/test.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thinkful-c11/full-stack-capstone-avi-sonja.git"
+  },
+  "author": "Avi & Sonja",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thinkful-c11/full-stack-capstone-avi-sonja/issues"
+  },
+  "homepage": "https://github.com/thinkful-c11/full-stack-capstone-avi-sonja#readme"
+}
