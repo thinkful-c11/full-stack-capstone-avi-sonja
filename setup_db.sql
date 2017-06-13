@@ -32,8 +32,8 @@ CREATE TABLE ratings(
 
 CREATE TABLE pairings(
     id serial PRIMARY KEY,
-    pair1 integer NOT NULL,
-    pair2 integer,
+    person1 integer NOT NULL,
+    person2 integer,
     cycles_id integer REFERENCES cycles,
     rating integer,
     rating_comment text,
