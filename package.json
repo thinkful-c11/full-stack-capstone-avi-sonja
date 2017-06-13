@@ -19,7 +19,7 @@
   "bugs": {
     "url": "https://github.com/thinkful-c11/full-stack-capstone-avi-sonja/issues"
   },
-  "homepage": "https://github.com/thinkful-c11/full-stack-capstone-avi-sonja#readme",
+  "homepage": "https://github.com/thinkful-c11/full-stack-capstone-avi-sonja/index.html",
   "dependencies": {
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
