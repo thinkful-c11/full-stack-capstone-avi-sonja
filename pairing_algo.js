@@ -1,5 +1,9 @@
 'use strict';
 
+const Combinatorics = require('js-combinatorics');
+
+
+
 //This is a combination generator to create all possible pairs
 //of students provided a range of student ID's. This also concatenates
 //an array of single student ID's to allow for students working alone. 
@@ -10,7 +14,7 @@
  * @param  {number} k - hardcoded to 2 here for selecting pairs
  * @return {Array.<Number[]>} returns an array of arrays of numbers, like [[1, 2], [2, 3], [3, 2]]
  */
-export function comboGenerator(inputSet, k=2) {
+function comboGenerator(inputSet, k=2) {
   return (function subsetRecurser(subset, inputSetIndex, subsetIndex, result) {
         // set up some defaults
     inputSetIndex = inputSetIndex || 0;
@@ -82,26 +86,43 @@ function uniqueRangeGenerator(min, max) {
 }
 
 
+function setsOfCombosGenerator(pairsArray, inputSet){
+  const numPairs = Math.floor(inputSet.length/2);
+  const setsOfPairs = Combinatorics.combination(pairsArray, numPairs);
+  const currSet = setsOfPairs.toArray()[0];
+  console.log();
+  return 'work in progress';
+}
+
+
 /**
  * MOMENT OF TRUTH...
  */
 
-const uniqueRange = uniqueRangeGenerator(0, 9);
+const uniqueRange = uniqueRangeGenerator(0, 5);
 const generatedPairs =comboGenerator(uniqueRange);
 const expectedNumberOfPairs = comboCounter(uniqueRange.length);
 
-console.log('Given a range of unique numbers like:');
-console.log(uniqueRange); // returns something like [ 7, 8, 6, 0, 4, 1, 5, 2, 3, 9 ]
-console.log('These are all the different possible pairs:');
-console.log(generatedPairs);
+const packageGenPairs = Combinatorics.combination(uniqueRange, 2).toArray();
+const allPairs = packageGenPairs.concat(uniqueRange.map(element => [element]));
+console.log(allPairs);
+
+console.log('Here come all the sets!');
+//const allTheThings = 
+//setsOfCombosGenerator(allPairs, uniqueRange);
+//console.log(allTheThings.toArray());
+
+// console.log('Given a range of unique numbers like:');
+// console.log(uniqueRange); // returns something like [ 7, 8, 6, 0, 4, 1, 5, 2, 3, 9 ]
+// console.log('These are all the different possible pairs:');
+// console.log(generatedPairs);
 
 
-console.log(`There should be ${generatedPairs.length} different possible pairs...`);
+// console.log(`There should be ${generatedPairs.length} different possible pairs...`);
 
-if (expectedNumberOfPairs === generatedPairs.length) {
-  console.log('... and there are!!!!');
-} else {
-  console.log('... and there are NOT!!!!');
-}
+// if (expectedNumberOfPairs === generatedPairs.length) {
+//   console.log('... and there are!!!!');
+// } else {
+//   console.log('... and there are NOT!!!!');
+// }
 
-//export {comboGenerator};
