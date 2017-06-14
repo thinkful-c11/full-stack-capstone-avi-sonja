@@ -11,7 +11,8 @@ function initialisePairsPage(state){
 function render(state){
     let presentPairingsList='';
     if(state.showPairingsList===true){
-        state.showPairingsList
+        $('.student-pairings-chart').html();
+        //state.showPairingsList
     }
     else{
         presentPairingsList+='<p>No pairings</p>';
@@ -20,7 +21,9 @@ function render(state){
 //EVENT HANDLERS
 function eventHandlers(){
     $(document).ready(function){
-        console.log("Testing!")
+        $('.student-pairings-chart').ready(function(event){
+            
+        })
     }
     render(appState);
 }
