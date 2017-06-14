@@ -27,6 +27,30 @@ function eventHandlers(){
     }
     render(appState);
 }
+
+//localhost:8080/cohort_members
+$.ajax({
+    url: '/todays_pairs',
+    type: 'GET',
+    dataType: 'json',
+    .done(function(json){
+        $('.student-pairings-chart').text(json.name1,json.name2);
+    })
+    // success: function(result){
+    //     $('.student-pairings-chart').html(result);
+    }
+    
+})
+let testShowing;
+$.get('/todays_pairs', function(result){
+    testShowing=result;
+})
+$.getJSON('/server.js', function(){
+    
+})
+$(.student-pairings-chart).load('/');
+console.log(response);
+
 //RUN THIS CUTENESS
 $(function(){
     eventHandlers();
