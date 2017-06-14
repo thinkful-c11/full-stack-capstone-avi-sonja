@@ -26,6 +26,7 @@
     "js-combinatorics": "^0.5.2",
     "knex": "^0.13.0",
     "morgan": "^1.8.2",
+    "node-env-file": "^0.1.8",
     "pg": "^6.2.4"
   },
   "devDependencies": {

@@ -10,6 +10,10 @@ body, footer{
     font-weight: 300;
     text-align: center;
 }
+.divider{
+    background-color: #787d7e;
+    height: .5em;
+}
 header h1{
     text-align: center;
     font-size: 3em;
@@ -17,7 +21,7 @@ header h1{
     font-weight: 300;
 }
 .login-form h2{
-    margin-top: -1em;
+    margin-top: -.5em;
     text-align: center;
     font-size: 2.3em;
     font-family: 'Open Sans', sans-serif;
@@ -26,10 +30,28 @@ header h1{
 .login-form{
     padding: 3em;
     box-sizing: border-box;
+    background: #d1dce5;
+    width: 25em;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 2em;
 }
 .login-form label{
     display: block;
     margin: 1em;
+}
+#user-username,#user-password{
+    border-radius: .5em;
+    border: none;
+    padding: .5em;
+}
+#submit-button{
+    border: none;
+    background: #4bb8d8;
+    color: white;
+    border-radius: .5em;
+    padding: .5em .7em;
+    font-size: 1em;
 }
 .add-user-form label{
     display: block;
