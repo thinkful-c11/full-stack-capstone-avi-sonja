@@ -2,6 +2,8 @@
 const express=require('express');
 const app=express();
 const{DATABASE,PORT}=require('./config');
+const bodyParser = require('body-parser');
+const jsonParser = bodyParser.json();
 const knex=require('knex')(DATABASE);
 //const{Pairing}=require('./models.js');
 app.use(express.static('public'));
@@ -19,15 +21,39 @@ app.get('/cohort_members',(req,res)=>{
       .then(results=>res.json(results));
 });
 
-//GET all students in a cohort by cohort id
-app.get('/cohort_members/:cid', (req, res)=>{
+//GET all active students from the cohort table
+app.get('/cohort_members/active',(req,res)=>{
   knex('cohort_members')
-    .where('cohort_id', req.params.cid)
-    .then(results => res.json(results));
+      .where('active', 'true')
+      .then(results=>res.json(results));
 });
 
 
+//GET all active students in a cohort by cohort id
+app.get('/cohort_members/:cid', (req, res)=>{
+  knex('cohort_members')
+    .where({
+      'cohort_id': req.params.cid,
+      'active':true
+    }).then(results => res.json(results));
+});
+
 app.get('/todays_pairs', (req, res)=>{
+  knex.select('pair1', 'pair2', 'pair3', 'expected_rating')
+   .from('set_of_pairs')
+   .where('current', 'true')
+   .then(results => {
+     console.log(results[0]);
+     return knex('pairings').select('name1', 'name2')
+            .whereIn('id', [results[0].pair1, results[0].pair2, results[0].pair3])
+            //.then(res2 => (Object.assign({'expected_rating':results[0].expected_rating},res2)))
+            .then(res3 => res.json(res3));
+   });
+});
+
+
+//GET the current day's pairing
+app.get('/todays_pairs/admin', (req, res)=>{
   knex.select('pair1', 'pair2', 'pair3', 'expected_rating')
    .from('set_of_pairs')
    .where('current', 'true')
@@ -39,6 +65,7 @@ app.get('/todays_pairs', (req, res)=>{
    });
 });
 
+//GET the pairing by ID of set of pairs
 app.get('/todays_pairs/:id', (req, res)=>{
   knex.select('pair1', 'pair2', 'pair3', 'expected_rating')
    .from('set_of_pairs')
@@ -51,13 +78,22 @@ app.get('/todays_pairs/:id', (req, res)=>{
    });
 });
 
-// //POST
-app.post('/cohort_members',(req,res)=>{
+//POST a new member to the cohort table 
+//curently has the cohort ID hardcoded to be part
+//of the current cohort test data
+app.post('/cohort_members', jsonParser, (req,res)=>{
+  console.log(req.body);
   knex('cohort_members').insert(req.body)
     .then(results => res.json(results));
 });
 
-
+// DELETE
+app.delete('/cohort_members/:id', (req,res) =>{
+  knex('cohort_members')
+    .where('id', req.params.id)
+    .update('active', 'false')
+    .then(results => res.json(results));
+});
 
 // //PUT
 // app.put('/cohort_members/:id',(req,res)=>{
