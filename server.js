@@ -134,4 +134,5 @@ app.delete('/cohort_members/:id', (req,res) =>{
 //     });
 // });
 
-app.listen(PORT || 8080);
+
+app.listen(PORT || 8080,function(){console.log("This is now listening");});
