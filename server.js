@@ -1,24 +1,51 @@
 'use strict';
 const express=require('express');
 const app=express();
-const knex=require('knex')(DATABASE);
 const{DATABASE,PORT}=require('./config');
-const{Pairing}=require('./models.js');
+const knex=require('knex')(DATABASE);
+//const{Pairing}=require('./models.js');
 app.use(express.static('public'));
+
+
 // //GET
 // // Does this work?
 // app.get('/',(req,res)=>{
 //   res.send.('Rabbits Cheesecake Cutethings'); 
 // });
-// app.get('/cohort_members',(req,res)=>{
-//     knex.select('*')
-//         .from('cohort_members')
-//         .then(results=>res.json(results));
-// });
+
+//GET all students from the cohort table
+app.get('/cohort_members',(req,res)=>{
+  knex('cohort_members')
+      .then(results=>res.json(results));
+});
+
+//GET all students in a cohort by cohort id
+app.get('/cohort_members/:cid', (req, res)=>{
+  knex('cohort_members')
+    .where('cohort_id', req.params.cid)
+    .then(results => res.json(results));
+});
+
+
+app.get('/todays_pairs', (req, res)=>{
+  knex.select('pair1', 'pair2', 'pair3', 'expected_rating')
+   .from('set_of_pairs')
+   .where('current', 'true')
+   .then(results => {
+     console.log(results[0]);
+     return knex('pairings').whereIn('id', [results[0].pair1, results[0].pair2, results[0].pair3])
+            .then(res2 => res.json(res2));
+   });
+});
+
 // //POST
-// app.post('/cohort_members',(req,res)=>{
-//     knex.select('first_name','last_name','cohort_id','location')
-// });
+app.post('/cohort_members',(req,res)=>{
+  knex('cohort_members').insert(req.body)
+    .then(results => res.json(results));
+});
+
+
+
 // //PUT
 // app.put('/cohort_members/:id',(req,res)=>{
      
@@ -34,4 +61,5 @@ app.use(express.static('public'));
 //         res.status(500).json({message:'Internal server error try again'});
 //     });
 // });
-app.listen(process.env.PORT || 8080);
+
+app.listen(PORT || 8080);

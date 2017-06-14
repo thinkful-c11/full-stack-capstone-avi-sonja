@@ -103,8 +103,10 @@ const uniqueRange = uniqueRangeGenerator(0, 5);
 const generatedPairs =comboGenerator(uniqueRange);
 const expectedNumberOfPairs = comboCounter(uniqueRange.length);
 
-const packageGenPairs = Combinatorics.combination(uniqueRange, 2).toArray();
-const allPairs = packageGenPairs.concat(uniqueRange.map(element => [element]));
+const cohort = ['Cersei', 'Jon', 'Sansa', 'Tyrion', 'Daenerys', 'Petyr'];
+
+const packageGenPairs = Combinatorics.combination(cohort, 2).toArray();
+const allPairs = packageGenPairs.concat(cohort.map(element => [element]));
 console.log(allPairs);
 
 console.log('Here come all the sets!');

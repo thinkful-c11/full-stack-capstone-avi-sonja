@@ -38,8 +38,10 @@ CREATE TABLE ratings(
 
 CREATE TABLE pairings(
     id serial PRIMARY KEY,
-    person1 integer NOT NULL,
-    person2 integer,
+    id1 integer NOT NULL references cohort_members
+    name1 text NOT NULL,
+    id2 integer,
+    name2 text,
     cycles_id integer REFERENCES cycles,
     rating integer,
     rating_comment text,
@@ -81,26 +83,36 @@ values ('Petyr', 'Baelish', 1, 'Meereen');
 
 insert into cycles (cohort_id, comment) values (1, 'this is going to get interesting');
 
-insert into pairings (person1, person2, cycles_id, rating, rating_comment) values (4, 5, 1, 3, 'no comments');
-insert into pairings (person1, person2, cycles_id, rating, rating_comment) values (4, 2, 1, 5, 'mutual enemies');
-insert into pairings (person1, person2, cycles_id, rating, rating_comment) values (5, 2, 1, 2, 'he likes her, she hates him');
-insert into pairings (person1, person2, cycles_id, rating, rating_comment) values (4, 1, 1, 3, 'no comments');
-insert into pairings (person1, person2, cycles_id, rating, rating_comment) values (5, 1, 1, 1, 'hate eachother');
-insert into pairings (person1, person2, cycles_id, rating, rating_comment) values (2, 1, 1, 4, 'she needs him');
-insert into pairings (person1, person2, cycles_id, rating, rating_comment) values (4, 0, 1, 1, 'hate eachother');
-insert into pairings (person1, person2, cycles_id, rating, rating_comment) values (5, 0, 1, 3, 'will work together but not like it');
-insert into pairings (person1, person2, cycles_id, rating, rating_comment) values (2, 0, 1, 1, 'loathe eachother');
-insert into pairings (person1, person2, cycles_id, rating, rating_comment) values (1, 0, 1, 1, 'loathe eachother');
-insert into pairings (person1, person2, cycles_id, rating, rating_comment) values (4, 3, 1, 4, 'good working relationship');
-insert into pairings (person1, person2, cycles_id, rating, rating_comment) values (5, 3, 1, 3, 'ok with working together');
-insert into pairings (person1, person2, cycles_id, rating, rating_comment) values (2, 3, 1, 5, 'will work together');
-insert into pairings (person1, person2, cycles_id, rating, rating_comment) values (1, 3, 1, 5, 'mutual respect');
-insert into pairings (person1, person2, cycles_id, rating, rating_comment) values (0, 3, 1, 1, 'will kill eachother given the opportunity');
-insert into pairings (person1, cycles_id, rating, rating_comment) values (4, 1, 3, 'ok working alone');
-insert into pairings (person1, cycles_id, rating, rating_comment) values (5, 1, 1, 'needs to work with others');
-insert into pairings (person1, cycles_id, rating, rating_comment) values (2, 1, 1, 'damsel in distress');
-insert into pairings (person1, cycles_id, rating, rating_comment) values (1, 1, 5, 'sometimes better off alone');
-insert into pairings (person1, cycles_id, rating, rating_comment) values (0, 1, 5, 'wants to work alone');
-insert into pairings (person1, cycles_id, rating, rating_comment) values (3, 1, 2, 'needs someone to advise');
+insert into pairings (id1, id2, cycles_id, rating, rating_comment, name1, name2) values (4, 5, 1, 3, 'no comments','Daenerys','Petyr');
+insert into pairings (id1, id2, cycles_id, rating, rating_comment, name1, name2) values (4, 2, 1, 5, 'mutual enemies', 'Daenerys', 'Sansa');
+insert into pairings (id1, id2, cycles_id, rating, rating_comment, name1, name2) values (5, 2, 1, 2, 'he likes her, she hates him', 'Petyr', 'Sansa');
+insert into pairings (id1, id2, cycles_id, rating, rating_comment, name1, name2) values (4, 1, 1, 3, 'no comments', 'Daenerys', 'Jon');
+insert into pairings (id1, id2, cycles_id, rating, rating_comment, name1, name2) values (5, 1, 1, 1, 'hate eachother', 'Petyr', 'Jon');
+insert into pairings (id1, id2, cycles_id, rating, rating_comment, name1, name2) values (2, 1, 1, 4, 'she needs him', 'Sansa', 'Jon');
+insert into pairings (id1, id2, cycles_id, rating, rating_comment, name1, name2) values (4, 0, 1, 1, 'hate eachother', 'Daenerys', 'Cersei');
+insert into pairings (id1, id2, cycles_id, rating, rating_comment, name1, name2) values (5, 0, 1, 3, 'will work together but not like it', 'Petyr', 'Cersei');
+insert into pairings (id1, id2, cycles_id, rating, rating_comment, name1, name2) values (2, 0, 1, 1, 'loathe eachother', 'Sansa', 'Cersei');
+insert into pairings (id1, id2, cycles_id, rating, rating_comment, name1, name2) values (1, 0, 1, 1, 'loathe eachother', 'Jon', 'Cersei');
+insert into pairings (id1, id2, cycles_id, rating, rating_comment, name1, name2) values (4, 3, 1, 4, 'good working relationship', 'Daenerys', 'Tyrion');
+insert into pairings (id1, id2, cycles_id, rating, rating_comment, name1, name2) values (5, 3, 1, 3, 'ok with working together', 'Petyr', 'Tyrion');
+insert into pairings (id1, id2, cycles_id, rating, rating_comment, name1, name2) values (2, 3, 1, 5, 'will work together', 'Sansa', 'Tyrion');
+insert into pairings (id1, id2, cycles_id, rating, rating_comment, name1, name2) values (1, 3, 1, 5, 'mutual respect', 'Jon', 'Tyrion');
+insert into pairings (id1, id2, cycles_id, rating, rating_comment, name1, name2) values (0, 3, 1, 1, 'will kill eachother given the opportunity', 'Cersei', 'Tyrion');
+insert into pairings (id1, cycles_id, rating, rating_comment, name1) values (4, 1, 3, 'ok working alone', 'Daenerys');
+insert into pairings (id1, cycles_id, rating, rating_comment, name1) values (5, 1, 1, 'needs to work with others', 'Petyr');
+insert into pairings (id1, cycles_id, rating, rating_comment, name1) values (2, 1, 1, 'damsel in distress', 'Sansa');
+insert into pairings (id1, cycles_id, rating, rating_comment, name1) values (1, 1, 5, 'sometimes better off alone', 'Jon');
+insert into pairings (id1, cycles_id, rating, rating_comment, name1) values (0, 1, 5, 'wants to work alone', 'Cersei');
+insert into pairings (id1, cycles_id, rating, rating_comment, name1) values (3, 1, 2, 'needs someone to advise', 'Tyrion');
+
+insert into set_of_pairs(pair1, pair2, pair3, cycles_id, expected_rating, current) values (1, 6, 15, 1, 2, 'true');
+insert into set_of_pairs(pair1, pair2, pair3, cycles_id, expected_rating) values (2, 8, 14, 1, 4.33);
+insert into set_of_pairs(pair1, pair2, pair3, cycles_id, expected_rating) values (11, 9, 5, 1, 2);
+insert into set_of_pairs(pair1, pair2, pair3, cycles_id, expected_rating) values (4, 12, 9, 1, 2.33);
+insert into set_of_pairs(pair1, pair2, pair3, cycles_id, expected_rating) values (7, 3, 14, 1, 2.66);
+insert into set_of_pairs(pair1, pair2, pair3, cycles_id, expected_rating) values (13, 10, 16, 1, 3);
 
 
+
+
+SELECT * FROM pairings where id (SELECT pair1, pair2, pair3 FROM set_of_pairs WHERE current='true');
