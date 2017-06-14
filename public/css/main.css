@@ -91,3 +91,7 @@ footer a{
 footer a:link{
     
 }
+.grid{
+    border-style: solid;
+    border-color: black;
+}
