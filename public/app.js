@@ -1,40 +1,47 @@
+'use strict';
+
 //APP INITIALISES
 const appState={
-    pairingsList=[],
-    showPairingsList=true;
+  pairingsList:[],
+  showPairingsList:true,
 };
 //STATE MODS
 function initialisePairsPage(state){
-    state.showPairingsList=true;
+  state.showPairingsList=true;
 }
 //RENDER
 function render(state){
-    let presentPairingsList='';
-    if(state.showPairingsList===true){
-        $('.student-pairings-chart').html();
+  let presentPairingsList='';
+  let htmlDisplay;
+  if(state.showPairingsList===true){
+    state.pairingsList.forEach(element => {
+      htmlDisplay += ``
+    }); 
+    $('.student-pairings-chart').html();
         //state.showPairingsList
-    }
-    else{
-        presentPairingsList+='<p>No pairings</p>';
-    }
+  }
+  else{
+    presentPairingsList+='<p>No pairings</p>';
+  }
 }
 //EVENT HANDLERS
 function eventHandlers(){
-    render(appState);
+  render(appState);
 }
 //localhost:8080/cohort_members
 function getContents(){
-    $.ajax({
-        url: '/todays_pairs',
-        type: 'GET',
-        dataType: 'json',
-        success: function(json){
-            appState.pairingsList=json;
-            render(appState);
-        },
+  $.ajax({
+    url: '/todays_pairs',
+    type: 'GET',
+    dataType: 'json',
+    success: function(json){
+      console.log(json);
+      appState.pairingsList=json;
+      render(appState);
+    },
         // success: function(result){
         //     $('.student-pairings-chart').html(result);
-    })
+  });
 }
 // let testShowing;
 // $.get('/todays_pairs', function(result){
@@ -48,7 +55,7 @@ function getContents(){
 
 //RUN THIS CUTENESS
 $(function(){
-    eventHandlers();
-    getContents();
-    render(appState,'');
+  eventHandlers();
+  getContents();
+  render(appState,'');
 });
