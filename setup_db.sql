@@ -9,7 +9,7 @@ privilege TEXT NOT NULL);
 
 CREATE TABLE cohort_members(
 id serial PRIMARY KEY,
-first_name TEXT,
+first_name TEXT NOT NULL,
 last_name TEXT NOT NULL,
 cohort_id int NOT NULL,
 location TEXT);

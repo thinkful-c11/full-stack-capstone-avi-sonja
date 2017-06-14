@@ -1,7 +1,7 @@
 'use strict';
 const express=require('express');
 const app=express();
-const{DATABASE,PORT}=require('./config');
+const {DATABASE,PORT} =require('./config');
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const knex=require('knex')(DATABASE);
@@ -36,6 +36,12 @@ app.get('/cohort_members/:cid', (req, res)=>{
       'cohort_id': req.params.cid,
       'active':true
     }).then(results => res.json(results));
+});
+
+app.get('/cohort_members/indiv/:id', (req, res)=> {
+  knex('cohort_members')
+    .where('id', req.params.id)
+    .then(results => res.json(results));
 });
 
 app.get('/todays_pairs', (req, res)=>{
@@ -106,11 +112,20 @@ app.post('/cohort_members', jsonParser, (req,res)=>{
   }
 });
 
-app.put('/cohort_members', jsonParser, (req, res)=>{
-
+//Can update the location of a cohort member by id
+app.put('/cohort_members/:id', jsonParser, (req, res)=> {
+  if(! req.body.location){
+    res.status(400).send();
+  }
+  else{
+    knex('cohort_members')
+      .update('location', req.body.location)
+      .where('id', req.params.id)
+      .then(results => res.json(results));
+  }
 });
 
-// DELETE
+// DELETE - softly
 app.delete('/cohort_members/:id', (req,res) =>{
   knex('cohort_members')
     .where('id', req.params.id)
