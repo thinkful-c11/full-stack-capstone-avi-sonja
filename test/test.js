@@ -107,9 +107,9 @@ function seedPairsData() {
             insert into pairings (id1, id2, cycles_id, rating, rating_comment, name1, name2) 
             values (2, 1, 1, 4, 'she needs him', 'Sansa', 'Jon');
             insert into pairings (id1, id2, cycles_id, rating, rating_comment, name1, name2) 
-            values (0, 3, 1, 1, 'will kill eachother given the opportunity', 'Cersei', 'Tyrion');`)
-            // insert into set_of_pairs(pair1, pair2, pair3, cycles_id, 
-            // expected_rating, current) values (1, 2, 3, 1, 2, 'true');`)
+            values (0, 3, 1, 1, 'will kill eachother given the opportunity', 'Cersei', 'Tyrion');
+            insert into set_of_pairs(pair1, pair2, pair3, cycles_id, 
+            expected_rating, current) values (1, 2, 3, 1, 2, 'true');`)
       .then(result => resolve(result))
       .catch(err => reject(err));
   });
