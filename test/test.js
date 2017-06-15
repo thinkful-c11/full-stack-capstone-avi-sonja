@@ -3,7 +3,13 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 //const faker = require('faker');
-const{TEST_DATABASE, PORT, TEST_DATABASE_URL}=require('../config');
+const{PORT, TEST_DATABASE_URL} = require('../config');
+
+const TEST_DATABASE = {
+  client: 'pg',
+  connection: TEST_DATABASE_URL,
+};
+
 const knex = require('knex')(TEST_DATABASE);
 console.log(TEST_DATABASE_URL);
 
