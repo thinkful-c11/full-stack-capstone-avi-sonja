@@ -19,7 +19,7 @@
         <body>
             <div class="col-6">
                 <!-- ### ADD USER FORM ### -->
-                <form class="create-add-user-form" action="/cohort_members/" method="post">
+                <form class="create-add-user-form">
                     <!-- ADD NEW USER HERE -->
                     <h3>Add New User</h3>
                     <!-- FIRST NAME HERE -->
@@ -27,7 +27,7 @@
                     <input type="first-name" name="user-first-name" id="user-first-name" placeholder="Alice" required/>
                     <!-- LAST NAME HERE -->
                     <label for="last-name-form">Last Name</label>
-                    <input type="last-name" name="user-last-name" id="user-last-name" placeholder="Liddel" required/>
+                    <input type="last-name" name="user-last-name" id="user-last-name" placeholder="Liddell" required/>
                     <!-- COHORT ID NUMBER HERE -->
                     <label for="cohort-id-form">Cohort</label>
                     <input type="cohort-id" name="user-cohort-id" id="user-cohort-id" placeholder="3" required/>
@@ -35,13 +35,13 @@
                     <label for="location-form">Location</label>
                     <input type="location" name="user-location" id="user-location" placeholder="Washington, DC"/>
                     <!-- SUBMIT TO ADD NEW USER BUTTON -->
-                    <button type="submit-form" id="submit-form" formaction="/cohort_members/">Submit</button>
+                    <button type="submit-form" id="submit-form">Submit</button>
                 </form>
             </div>
             <div class="col-6">
                 <!-- ### UPDATE USER FORM ### 
                      This currently only updates the location -->
-                <form class="create-update-user-form" action="/cohort_members/:id" method="put">
+                <form class="create-update-user-form">
                     <!-- UPDATE USER HERE -->
                     <h3>Update User</h3>
                     <!-- USER ID HERE -->
@@ -49,9 +49,9 @@
                     <input type="student-id" name="student-user-id" id="student-user-id" placeholder="1" required/>
                     <!-- LOCATION HERE -->
                     <label for="location-form">Location</label>
-                    <input type="location" name="user-location" id="user-location" placeholder="Washington, DC"/>
+                    <input type="location" name="student-user-location" id="student-user-location" placeholder="Wonderland"/>
                     <!-- SUBMIT TO REMOVE USER BUTTON -->
-                    <button type="submit-form" id="submit-form" formaction="/cohort_members/:id">Submit</button>
+                    <button type="submit-form" id="submit-form">Submit</button>
                 </form>
                 <!-- ### REMOVE USER FORM ### -->
                 <form class="create-remove-user-form" action="/cohort_members/:id" method="delete">
