@@ -81,7 +81,7 @@ header h1{
 .add-user-form,.add-cohorts-form,.create-remove-user-form{
     margin-top: 3em;
 }
-.create-remove-user-form{
+.create-update-user-form{
     margin-bottom: 3em;
 }
 #user-first-name,#user-last-name,#user-cohort-id,#user-location,#cohort-cohort-name,#student-user-id{
@@ -177,6 +177,10 @@ footer a:link{
     width: 5em;
     border-radius: .25em;
 }
+.remove-student-option,.remove-student-box{
+    width: 5em;
+    border-radius: .25em;
+}
 .staticgrid{
     background: #d1dce5;
     border-style: solid;
@@ -185,4 +189,10 @@ footer a:link{
     display: inline-block;
     box-sizing: border-box;
     height: 2em;
+}
+.concept-users-header{
+    margin-top: 3em;
+}
+.concept-users-chart{
+    margin-bottom: 1.5em;
 }

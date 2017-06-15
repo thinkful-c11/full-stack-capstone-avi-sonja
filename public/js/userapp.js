@@ -16,7 +16,10 @@ function render(state){
     let dailyExpectedRating=''; //This is the expected overall rating of all pairs that day
     if(state.showPairingsList===true){
         state.pairingsList.forEach(element => {
-            htmlDisplay += `<div class="show-admin-chart"><div class="user-user-id grid">${element.id}</div><div class="user-name-first grid">${element.first_name}</div><div class="user-name-last grid">${element.last_name}</div><div class="user-cohort-id grid">${element.cohort_id}</div><div class="user-user-location grid">${element.location}</div></div>`
+            if(element.active===true){
+            //<div class="grid remove-student-option"><span class="X">X</span>
+            htmlDisplay += `<div class="show-admin-chart"><div class="grid remove-student-option"><span class="X"><button data-rabbits="${element.id}" class="remove-student-row" type="button">X</button></span></div><div class="user-user-id grid">${element.id}</div><div class="user-name-first grid">${element.first_name}</div><div class="user-name-last grid">${element.last_name}</div><div class="user-cohort-id grid">${element.cohort_id}</div><div class="user-user-location grid">${element.location}</div></div>`
+            }
             //htmlDisplay += `<p>Please work!</p>`
             //console.log("This is partner 1: " + element.name1);
             //console.log("This is partner 2: " + element.name2);
@@ -73,6 +76,28 @@ function eventHandlers(){
                 console.log(json);
             },
         });
+    });
+    $('.concept-users-chart').on('click','.remove-student-row', function(event){
+       event.preventDefault();
+       console.log(event);
+       console.log($(this).data('rabbits'));
+       let rabbits=$(this).data('rabbits');
+       $.ajax({
+              url: `/cohort_members/${rabbits}`,
+              type: 'delete',
+              contentType: 'application/json',
+              success: function(json){
+                  console.log(json);
+              }
+        });
+        console.log(appState);
+        appState.pairingsList.forEach(element =>{
+            if(element.id===rabbits){
+                element.active=false;
+            }
+        });
+        render(appState)
+        console.log(appState);
     });
     render(appState);
 }
