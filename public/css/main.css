@@ -58,6 +58,32 @@ header h1{
     margin: 1em;
 }
 .add-user-form,.add-cohorts-form{
+    padding: 3em;
+    box-sizing: border-box;
+    background: #d1dce5;
+    width: 25em;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 2em;
+}
+#user-first-name,#user-last-name,#user-cohort-id,#user-location,#cohort-cohort-name{
+    border-radius: .5em;
+    border: none;
+    padding: .5em;
+}
+#submit-form{
+    display: block;
+    border: none;
+    background: #4bb8d8;
+    color: white;
+    border-radius: .5em;
+    padding: .5em .7em;
+    font-size: 1em;
+    margin-top: 2em;
+    margin-left: auto;
+    margin-right: auto;
+}
+.add-user-form,.add-cohorts-form{
     text-align: center;
 }
 .add-user-form h3{
@@ -91,7 +117,22 @@ footer a{
 footer a:link{
     
 }
-.grid{
+.grid,.staticgrid{
     border-style: solid;
     border-color: black;
+    display: inline-block;
+    box-sizing: border-box;
+    height: 3em;
 }
+.partner-rating-comments{
+    width: 19em;
+}
+.partner-1-name,.partner-2-name{
+    width: 10em;
+}
+.partner-cycle-id,.partner-1-id,.partner-2-id,.partner-ratings{
+    width: 5em;
+}
+/*.show-admin-chart{*/
+/*    background: #d1dce5;*/
+/*}*/
