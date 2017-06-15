@@ -124,7 +124,7 @@ app.put('/cohort_members/:id', jsonParser, (req, res)=> {
       .update('location', req.body.location)
       .where('id', req.params.id)
       .returning(['id','first_name', 'last_name', 'cohort_id', 'location', 'active'])
-      .then(results => res.json(results));
+      .then(results => res.status(201).json(results));
   }
 });
 

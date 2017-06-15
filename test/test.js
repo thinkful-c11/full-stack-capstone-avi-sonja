@@ -14,7 +14,7 @@ const knex = require('knex')(TEST_DATABASE);
 const should = chai.should();
 
 //const {DATABASE_URL} = require('../config');
-//const { BlogPost, User } = require('../models');
+//const { Blogcm1, User } = require('../models');
 const { app, runServer, closeServer } = require('../server');
 //console.log(app);
 //const { TEST_DATABASE_URL } = require('../config');
@@ -103,11 +103,11 @@ function seedPairsData() {
             insert into pairings (id1, id2, cycles_id, rating, rating_comment, name1, name2) 
             values (4, 5, 1, 3, 'no comments','Daenerys','Petyr');
             insert into pairings (id1, id2, cycles_id, rating, rating_comment, name1, name2) 
-            values (2, 1, 1, 4, 'she needs him', 'Sansa', 'Jon');
-            insert into pairings (id1, id2, cycles_id, rating, rating_comment, name1, name2) 
-            values (0, 3, 1, 1, 'will kill eachother given the opportunity', 'Cersei', 'Tyrion');
-            insert into set_of_pairs(pair1, pair2, pair3, cycles_id, 
-            expected_rating, current) values (1, 2, 3, 1, 2, 'true');`)
+            values (2, 1, 1, 4, 'she needs him', 'Sansa', 'Jon');`)
+            // insert into pairings (id1, id2, cycles_id, rating, rating_comment, name1, name2) 
+            // values (0, 3, 1, 1, 'will kill eachother given the opportunity', 'Cersei', 'Tyrion');
+            // insert into set_of_pairs(pair1, pair2, pair3, cycles_id, 
+            // expected_rating, current) values (1, 2, 3, 1, 2, 'true');`)
       .then(result => resolve(result))
       .catch(err => reject(err));
   });
@@ -116,7 +116,7 @@ function seedPairsData() {
 
 
 
-describe('blog posts API resource with user authentication', function () {
+describe('blog cm1s API resource with user authentication', function () {
 
   before(function () {
     return runServer(TEST_DATABASE, PORT);
@@ -143,9 +143,9 @@ describe('blog posts API resource with user authentication', function () {
 
     it('should return all existing cohort members', function () {
       // strategy:
-      //    1. get back all posts returned by by GET request to `/posts`
+      //    1. get back all cm1s returned by by GET request to `/cm1s`
       //    2. prove res has right status, data type
-      //    3. prove the number of posts we got back is equal to number
+      //    3. prove the number of cm1s we got back is equal to number
       //       in db.
       let res;
       return chai.request(app)
@@ -160,8 +160,8 @@ describe('blog posts API resource with user authentication', function () {
           return numInCohort;
         })
         .then(count => {
-          // the number of returned posts should be same
-          // as number of posts in DB
+          // the number of returned cm1s should be same
+          // as number of cm1s in DB
           res.body.should.have.length(count);
         });
     });
@@ -183,7 +183,7 @@ describe('blog posts API resource with user authentication', function () {
             cm.should.be.a('object');
             cm.should.include.keys('id','first_name', 'last_name', 'cohort_id', 'location', 'active');
           });
-          // just check one of the posts that its values match with those in db
+          // just check one of the cm1s that its values match with those in db
           // and we'll assume it's true for rest
           resCM = res.body[0];
           return knex('cohort_members').where('id', resCM.id).then(results => results);
@@ -203,12 +203,10 @@ describe('blog posts API resource with user authentication', function () {
 //values ('Petyr', 'Baelish', 1, 'Meereen');
 
   describe('POST endpoint', function () {
-    // strategy: make a POST request with data,
-    // then prove that the post we get back has
+    // strategy: make a post request with data,
+    // then prove that the cohort member we get back has
     // right keys, and that `id` is there (which means
     // the data was inserted into db)
-    //const fakeFName = faker.name.firstName();
-    //const fakeLName = faker.name.lastName();
 
     const newCM = {
       first_name: 'Bran', 
@@ -217,9 +215,8 @@ describe('blog posts API resource with user authentication', function () {
       location: 'unknown'
     };
 
-    it('should add a new blog post', function () {
+    it('should add a new cohort member', function () {
 
-      let user;
       return chai.request(app)
         .post('/cohort_members')
         .send(newCM)
@@ -248,127 +245,49 @@ describe('blog posts API resource with user authentication', function () {
   });
 
 
-//   describe('PUT endpoint', function () {
+  describe('PUT endpoint', function () {
 
-//     // strategy:
-//     //  1. Get an existing post from db
-//     //  2. Make a PUT request to update that post
-//     //  3. Prove post returned by request contains data we sent
-//     //  4. Prove post in db is correctly updated
-//     const fakeFName = faker.name.firstName();
-//     const fakeLName = faker.name.lastName();
+    // strategy:
+    //  1. Get an existing cm1 from db
+    //  2. Make a PUT request to update that cm1
+    //  3. Prove cm1 returned by request contains data we sent
+    //  4. Prove cm1 in db is correctly updated
 
-//     it('should update fields you send over', function () {
-//       const updateData = {
-//         title: 'cats cats cats',
-//         content: 'dogs dogs dogs',
-//         author: {
-//           firstName: 'foo',
-//           lastName: 'bar'
-//         }
-//       };
-//       let user;
-
-//       return User.create({
-//         username: faker.internet.userName(),
-//         // Substitute the hash you generated here
-//         password: '$2a$10$JW/va21Tev0oCSaQVHTPh.R6fsioI8QlL5MndlEuRPneeYy1GfHVe',
-//         firstName: fakeFName,
-//         lastName: fakeLName
-//       })
-//         .then(_user => user = _user)
-//         .then(() => {
-//           return BlogPost
-//             .findOne()
-//             .exec()
-//             .then(post => {
-//               updateData.id = post.id;
-
-//               return chai.request(app)
-//                 .put(`/posts/${post.id}`)
-//                 .auth(user.username, 'test-password')
-//                 .send(updateData);
-//             });
-//         })
-//         .then(res => {
-//           res.should.have.status(201);
-//           res.should.be.json;
-//           res.body.should.be.a('object');
-//           res.body.title.should.equal(updateData.title);
-//           res.body.author.should.equal(
-//             `${updateData.author.firstName} ${updateData.author.lastName}`);
-//           res.body.content.should.equal(updateData.content);
-
-//           return BlogPost.findById(res.body.id).exec();
-//         })
-//         .then(post => {
-//           post.title.should.equal(updateData.title);
-//           post.content.should.equal(updateData.content);
-//           post.author.firstName.should.equal(updateData.author.firstName);
-//           post.author.lastName.should.equal(updateData.author.lastName);
-//         });
-//     });
-//   });
+    it('should update fields you send over', function () {
+      const newCM = {
+        first_name: 'Bran', 
+        last_name:'Stark',
+        cohort_id: 1,
+        location: 'unknown',
+      };
+      const updateData = {location:'Beyond the Wall'};
 
 
-//   describe('PUT endpoint', function () {
+      return knex('cohort_members').insert(newCM)
+            .returning(['id'])
+            .then(cm => {
+              //console.log(cm);
+              newCM.id = cm[0].id;
+              return chai.request(app).put(`/cohort_members/${newCM.id}`).send(updateData);
+            })
+            .then(res => {
+              //console.log(res.body);
+              res.should.have.status(201);
+              res.should.be.json;
+              res.body[0].should.be.a('object');
+              res.body[0].location.should.equal(updateData.location);
 
-//     // strategy:
-//     //  1. Get an existing post from db
-//     //  2. Make a PUT request to update that post
-//     //  3. Prove post returned by request contains data we sent
-//     //  4. Prove post in db is correctly updated
-//     const fakeFName = faker.name.firstName();
-//     const fakeLName = faker.name.lastName();
-
-//     it('should not update fields you send over with improper credentials', function () {
-//       const updateData = {
-//         title: 'cats cats cats',
-//         content: 'dogs dogs dogs',
-//         author: {
-//           firstName: 'foo',
-//           lastName: 'bar'
-//         }
-//       };
-//       let user;
-
-//       return User.create({
-//         username: faker.internet.userName(),
-//         // Substitute the hash you generated here
-//         password: '$2a$10$JW/va21Tev0oCSaQVHTPh.R6fsioI8QlL5MndlEuRPneeYy1GfHVe',
-//         firstName: fakeFName,
-//         lastName: fakeLName
-//       })
-//         .then(_user => user = _user)
-//         .then(() => {
-//           return BlogPost
-//             .findOne()
-//             .exec()
-//             .then(post => {
-//               updateData.id = post.id;
-
-//               return chai.request(app)
-//                 .put(`/posts/${post.id}`)
-//                 .auth(faker.internet.userName(), faker.internet.password())
-//                 .send(updateData);
-//             });
-//         })
-//         .then(res => {
-//           res.should.not.have.status(201);
-//           res.should.not.be.json;
-//           res.body.should.not.be.a('object');
-//           res.body.title.should.not.equal(updateData.title);
-//           res.body.author.should.not.equal(
-//             `${updateData.author.firstName} ${updateData.author.lastName}`);
-//           res.body.content.should.not.equal(updateData.content);
-
-//         })
-//         .catch(function(err) {
-//           err.should.be.an('error');
-//         });
-//     });
-//   });
-
+              return knex('cohort_members').where('id', newCM.id).then(result => result);
+            })
+        .then(cm1 => {
+          cm1[0].id.should.equal(newCM.id);
+          cm1[0].first_name.should.equal(newCM.first_name);
+          cm1[0].last_name.should.equal(newCM.last_name);
+          cm1[0].cohort_id.should.equal(newCM.cohort_id);
+          cm1[0].location.should.equal(updateData.location);
+        });
+    });
+  });
 
 
   describe('DELETE endpoint', function () {
@@ -402,10 +321,7 @@ describe('blog posts API resource with user authentication', function () {
         })
         .then(cm1 => {
           //console.log(_cm);
-          // when a variable's value is null, chaining `should`
-          // doesn't work. so `_post.should.be.null` would raise
-          // an error. `should.be.null(_post)` is how we can
-          // make assertions about a null value.
+          //asserting that the soft delete happened in the database
           cm1[0].id.should.equal(cm[0].id);
           cm1[0].active.should.equal(false);
         });
