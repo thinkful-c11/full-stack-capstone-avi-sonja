@@ -57,7 +57,19 @@ header h1{
     display: block;
     margin: 1em;
 }
-.add-user-form,.add-cohorts-form{
+.create-add-user-form label{
+    display: block;
+    margin: 1em;
+}
+.create-update-user-form label{
+    display: block;
+    margin: 1em;
+}
+.create-remove-user-form label{
+    display: block;
+    margin: 1em;
+}
+.add-user-form,.add-cohorts-form,.create-add-user-form,.create-update-user-form,.create-remove-user-form{
     padding: 3em;
     box-sizing: border-box;
     background: #d1dce5;
@@ -66,7 +78,13 @@ header h1{
     margin-right: auto;
     border-radius: 2em;
 }
-#user-first-name,#user-last-name,#user-cohort-id,#user-location,#cohort-cohort-name{
+.add-user-form,.add-cohorts-form,.create-remove-user-form{
+    margin-top: 3em;
+}
+.create-remove-user-form{
+    margin-bottom: 3em;
+}
+#user-first-name,#user-last-name,#user-cohort-id,#user-location,#cohort-cohort-name,#student-user-id{
     border-radius: .5em;
     border: none;
     padding: .5em;
@@ -83,10 +101,28 @@ header h1{
     margin-left: auto;
     margin-right: auto;
 }
-.add-user-form,.add-cohorts-form{
+.add-user-form,.add-cohorts-form,.create-add-user-form{
     text-align: center;
 }
 .add-user-form h3{
+    font-weight: 300;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.5em;
+    text-align: center;
+}
+.create-add-user-form h3{
+    font-weight: 300;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.5em;
+    text-align: center;
+}
+.create-update-user-form h3{
+    font-weight: 300;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.5em;
+    text-align: center;
+}
+.create-remove-user-form h3{
     font-weight: 300;
     font-family: 'Open Sans', sans-serif;
     font-size: 1.5em;
@@ -117,8 +153,9 @@ footer a{
 footer a:link{
     
 }
-.grid,.staticgrid{
+.grid{
     border-style: solid;
+    border-width: 1px;
     border-color: black;
     display: inline-block;
     box-sizing: border-box;
@@ -126,13 +163,26 @@ footer a:link{
 }
 .partner-rating-comments{
     width: 19em;
+    border-radius: .25em;
 }
-.partner-1-name,.partner-2-name{
+.partner-1-name,.partner-2-name,.user-name-first,.user-name-last,.user-user-location{
     width: 10em;
+    border-radius: .25em;
 }
-.partner-cycle-id,.partner-1-id,.partner-2-id,.partner-ratings{
+.student-user-user-first-name,.student-user-user-last-name,.student-user-location{
+    width: 10em;
+    border-radius: .25em;
+}
+.partner-cycle-id,.partner-1-id,.partner-2-id,.partner-ratings,.user-cohort-id,.user-user-id,.student-user-cohort-id,.student-user-user-id{
     width: 5em;
+    border-radius: .25em;
 }
-/*.show-admin-chart{*/
-/*    background: #d1dce5;*/
-/*}*/
+.staticgrid{
+    background: #d1dce5;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    display: inline-block;
+    box-sizing: border-box;
+    height: 2em;
+}
