@@ -6,7 +6,3 @@ CREATE TABLE cohort_members(id serial PRIMARY KEY, first_name TEXT NOT NULL,
             pair1 integer, pair2 integer, pair3 integer, cycles_id integer, expected_rating NUMERIC(4, 2),
             actual_rating integer,frozen bool default 'false', comment text);
 
-
-
-DROP TABLE IF EXISTS set_of_pairs; 
-            DROP TABLE IF EXISTS pairings; DROP TABLE IF EXISTS cohort_members;

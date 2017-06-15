@@ -1,4 +1,10 @@
 services: postgresql
+postgres:
+  adapter: postgresql
+  database: travis_ci_test
+  username: postgres
 language: node_js
 node_js: node
 
+before_script:
+  - psql -c 'create database travis_ci_test;' -U postgres -f './test/test_setup_db.sql'
