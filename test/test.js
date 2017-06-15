@@ -2,8 +2,8 @@
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const faker = require('faker');
-const{TEST_DATABASE,PORT}=require('./config');
+//const faker = require('faker');
+const{TEST_DATABASE,PORT}=require('../config');
 const knex = require('knex')(TEST_DATABASE);
 
 // this makes the should syntax available throughout
@@ -12,8 +12,9 @@ const should = chai.should();
 
 //const {DATABASE_URL} = require('../config');
 //const { BlogPost, User } = require('../models');
-const { closeServer, runServer, app } = require('../server');
-const { TEST_DATABASE_URL } = require('../config');
+const { app } = require('../server');
+//console.log(app);
+//const { TEST_DATABASE_URL } = require('../config');
 
 chai.use(chaiHttp);
 
@@ -23,16 +24,58 @@ chai.use(chaiHttp);
 
 //password hash => $2a$10$JW/va21Tev0oCSaQVHTPh.R6fsioI8QlL5MndlEuRPneeYy1GfHVe
 
+const numInCohort = 6;
+
+
+
+// this function creates the tables in the database.
+// we'll call it in an `beforeEach` block below
+// to ensure that from one test to another
+// we have clean tables to seed data into
+function createDb() {
+  return new Promise((resolve, reject) => {
+    console.warn('Creating database');
+    knex.raw(`CREATE TABLE cohort_members(id serial PRIMARY KEY, first_name TEXT NOT NULL, 
+            last_name TEXT NOT NULL,cohort_id int NOT NULL,location TEXT); 
+            CREATE TABLE pairings(id serial PRIMARY KEY, id1 integer NOT NULL, 
+            name1 text NOT NULL, id2 integer,name2 text, cycles_id integer, rating integer,
+            rating_comment text, comment text); CREATE TABLE set_of_pairs(id serial PRIMARY KEY,
+            pair1 integer, pair2 integer, pair3 integer, cycles_id integer, expected_rating NUMERIC(4, 2),
+            actual_rating integer,frozen bool default 'false', comment text);
+      `)
+      .then(result => resolve(result))
+      .catch(err => reject(err));
+  });
+}
 
 
 // this function deletes the entire database.
 // we'll call it in an `afterEach` block below
-// to ensure  ata from one test does not stick
+// to ensure  that data from one test does not stick
 // around for next one
 function tearDownDb() {
   return new Promise((resolve, reject) => {
     console.warn('Deleting database');
-    mongoose.connection.dropDatabase()
+    knex.raw(`DROP TABLE IF EXISTS set_of_pairs; 
+            DROP TABLE IF EXISTS pairings; DROP TABLE IF EXISTS cohort_members;`)
+      .then(result => resolve(result))
+      .catch(err => reject(err));
+  });
+}
+
+// this function deletes all that data in the database.
+// we'll call it in an `afterEach` block below
+// to ensure  that data from one test does not stick
+// around for next one
+function clearTablesDb() {
+  return new Promise((resolve, reject) => {
+    console.warn('Deleting all data');
+    knex.raw(`DELETE FROM set_of_pairs; 
+            DELETE FROM pairings; DELETE FROM cohort_members;
+            ALTER SEQUENCE set_of_pairs_id_seq RESTART WITH 1;
+            ALTER SEQUENCE pairings_id_seq RESTART WITH 1;
+            ALTER SEQUENCE cohort_members_id_seq RESTART WITH 1;
+            `)
       .then(result => resolve(result))
       .catch(err => reject(err));
   });
@@ -44,21 +87,32 @@ function tearDownDb() {
 // we use the Faker library to automatically
 // generate placeholder values for author, title, content
 // and then we insert that data into mongo
-function seedBlogPostData() {
-  console.info('seeding blog post data');
-  const seedData = [];
-  for (let i = 1; i <= 10; i++) {
-    seedData.push({
-      author: {
-        firstName: faker.name.firstName(),
-        lastName: faker.name.lastName()
-      },
-      title: faker.lorem.sentence(),
-      content: faker.lorem.text()
-    });
-  }
-  // this will return a promise
-  return BlogPost.insertMany(seedData);
+function seedPairsData() {
+  return new Promise((resolve, reject) => {
+    console.warn('Seeding data in the database');
+    knex.raw(`insert into cohort_members (first_name, last_name, cohort_id, location) 
+            values ('Cersei', 'Lannister', 1, 'Kings Landing'); 
+            insert into cohort_members (first_name, last_name, cohort_id, location) 
+            values ('Jon', 'Snow', 1, 'Winterfell');
+            insert into cohort_members (first_name, last_name, cohort_id, location) 
+            values ('Sansa', 'Stark', 1, 'Winterfell');
+            insert into cohort_members (first_name, last_name, cohort_id, location) 
+            values ('Tyrion', 'Lannister', 1, 'Meereen');
+            insert into cohort_members (first_name, last_name, cohort_id, location) 
+            values ('Daenerys', 'Targaryen', 1, 'Meereen');
+            insert into cohort_members (first_name, last_name, cohort_id, location) 
+            values ('Petyr', 'Baelish', 1, 'Meereen');
+            insert into pairings (id1, id2, cycles_id, rating, rating_comment, name1, name2) 
+            values (4, 5, 1, 3, 'no comments','Daenerys','Petyr');
+            insert into pairings (id1, id2, cycles_id, rating, rating_comment, name1, name2) 
+            values (2, 1, 1, 4, 'she needs him', 'Sansa', 'Jon');
+            insert into pairings (id1, id2, cycles_id, rating, rating_comment, name1, name2) 
+            values (0, 3, 1, 1, 'will kill eachother given the opportunity', 'Cersei', 'Tyrion');`)
+            // insert into set_of_pairs(pair1, pair2, pair3, cycles_id, 
+            // expected_rating, current) values (1, 2, 3, 1, 2, 'true');`)
+      .then(result => resolve(result))
+      .catch(err => reject(err));
+  });
 }
 
 
@@ -67,21 +121,21 @@ function seedBlogPostData() {
 describe('blog posts API resource with user authentication', function () {
 
   before(function () {
-    return runServer(TEST_DATABASE_URL);
+    return createDb();
   });
 
   beforeEach(function () {
-    return seedBlogPostData();
+    return seedPairsData();
   });
 
   afterEach(function () {
     // tear down database so we ensure no state from this test
     // effects any coming after.
-    return tearDownDb();
+    return clearTablesDb();
   });
 
   after(function () {
-    return closeServer();
+    return tearDownDb();
   });
 
   // note the use of nested `describe` blocks.
@@ -89,7 +143,7 @@ describe('blog posts API resource with user authentication', function () {
   // on proving something small
   describe('GET endpoint', function () {
 
-    it('should return all existing posts', function () {
+    it('should return all existing cohort members', function () {
       // strategy:
       //    1. get back all posts returned by by GET request to `/posts`
       //    2. prove res has right status, data type
@@ -97,28 +151,28 @@ describe('blog posts API resource with user authentication', function () {
       //       in db.
       let res;
       return chai.request(app)
-        .get('/posts')
+        .get('/cohort_members')
         .then(_res => {
           res = _res;
           res.should.have.status(200);
           // otherwise our db seeding didn't work
           res.body.should.have.length.of.at.least(1);
 
-          return BlogPost.count();
+          return numInCohort;
         })
         .then(count => {
           // the number of returned posts should be same
           // as number of posts in DB
-          res.body.should.have.length.of(count);
+          res.body.should.have.length(count);
         });
     });
 
-    it('should return posts with right fields', function () {
+    it('should return cohort members with right fields', function () {
       // Strategy: Get back all posts, and ensure they have expected keys
 
-      let resPost;
+      let resCM;
       return chai.request(app)
-        .get('/posts')
+        .get('/cohort_members')
         .then(function (res) {
 
           res.should.have.status(200);
@@ -126,19 +180,21 @@ describe('blog posts API resource with user authentication', function () {
           res.body.should.be.a('array');
           res.body.should.have.length.of.at.least(1);
 
-          res.body.forEach(function (post) {
-            post.should.be.a('object');
-            post.should.include.keys('id', 'title', 'content', 'author', 'created');
+          res.body.forEach(function (cm) {
+            cm.should.be.a('object');
+            cm.should.include.keys('id','first_name', 'last_name', 'cohort_id', 'location');
           });
           // just check one of the posts that its values match with those in db
           // and we'll assume it's true for rest
-          resPost = res.body[0];
-          return BlogPost.findById(resPost.id).exec();
+          resCM = res.body[0];
+          return knex('cohort_members').where('id', resCM.id).then(results => results);
         })
-        .then(post => {
-          resPost.title.should.equal(post.title);
-          resPost.content.should.equal(post.content);
-          resPost.author.should.equal(post.authorName);
+        .then( cm => {
+          resCM.id.should.equal(cm[0].id);
+          resCM.first_name.should.equal(cm[0].first_name);
+          resCM.last_name.should.equal(cm[0].last_name);
+          resCM.cohort_id.should.equal(cm[0].cohort_id);
+          resCM.location.should.equal(cm[0].location);
         });
     });
   });

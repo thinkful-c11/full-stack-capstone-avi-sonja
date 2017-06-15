@@ -149,6 +149,6 @@ app.delete('/cohort_members/:id', (req,res) =>{
 //         res.status(500).json({message:'Internal server error try again'});
 //     });
 // });
-
+module.exports = { app };
 
 app.listen(PORT || 8080,function(){console.log("This is now listening");});
