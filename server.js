@@ -4,7 +4,7 @@ const app=express();
 const {DATABASE,PORT} =require('./config');
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
-const knex=require('knex')(DATABASE);
+//const knex=require('knex')(DATABASE);
 //const{Pairing}=require('./models.js');
 app.use(express.static('public'));
 
@@ -149,6 +149,47 @@ app.delete('/cohort_members/:id', (req,res) =>{
 //         res.status(500).json({message:'Internal server error try again'});
 //     });
 // });
-module.exports = { app };
 
-app.listen(PORT || 8080,function(){console.log("This is now listening");});
+
+let server;
+let knex;
+function runServer(database = DATABASE, port = PORT) {
+  return new Promise((resolve, reject) => {
+    try {
+      knex = require('knex')(database);
+      server = app.listen(port, () => {
+        console.info(`App listening on port ${server.address().port}`);
+        resolve();
+      });
+    }
+    catch (err) {
+      console.error(`Can't start server: ${err}`);
+      reject(err);
+    }
+  });
+}
+
+function closeServer() {
+  return knex.destroy().then(() => {
+    return new Promise((resolve, reject) => {
+      console.log('Closing servers');
+      server.close(err => {
+        if (err) {
+          return reject(err);
+        }
+        resolve();
+      });
+    });
+  });
+}
+
+if (require.main === module) {
+  runServer().catch(err => {
+    console.error(`Can't start server: ${err}`);
+    throw err;
+  });
+}
+
+module.exports = { app, runServer, closeServer };
+
+//app.listen(PORT || 8080,function(){console.log("This is now listening");});

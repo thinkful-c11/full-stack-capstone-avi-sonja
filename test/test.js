@@ -3,7 +3,7 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 //const faker = require('faker');
-const{TEST_DATABASE,PORT}=require('../config');
+const{TEST_DATABASE, PORT}=require('../config');
 const knex = require('knex')(TEST_DATABASE);
 
 // this makes the should syntax available throughout
@@ -12,7 +12,7 @@ const should = chai.should();
 
 //const {DATABASE_URL} = require('../config');
 //const { BlogPost, User } = require('../models');
-const { app } = require('../server');
+const { app, runServer, closeServer } = require('../server');
 //console.log(app);
 //const { TEST_DATABASE_URL } = require('../config');
 
@@ -32,36 +32,36 @@ const numInCohort = 6;
 // we'll call it in an `beforeEach` block below
 // to ensure that from one test to another
 // we have clean tables to seed data into
-function createDb() {
-  return new Promise((resolve, reject) => {
-    console.warn('Creating database');
-    knex.raw(`CREATE TABLE cohort_members(id serial PRIMARY KEY, first_name TEXT NOT NULL, 
-            last_name TEXT NOT NULL,cohort_id int NOT NULL,location TEXT); 
-            CREATE TABLE pairings(id serial PRIMARY KEY, id1 integer NOT NULL, 
-            name1 text NOT NULL, id2 integer,name2 text, cycles_id integer, rating integer,
-            rating_comment text, comment text); CREATE TABLE set_of_pairs(id serial PRIMARY KEY,
-            pair1 integer, pair2 integer, pair3 integer, cycles_id integer, expected_rating NUMERIC(4, 2),
-            actual_rating integer,frozen bool default 'false', comment text);
-      `)
-      .then(result => resolve(result))
-      .catch(err => reject(err));
-  });
-}
+// function createDb() {
+//   return new Promise((resolve, reject) => {
+//     console.warn('Creating database');
+//     knex.raw(`CREATE TABLE cohort_members(id serial PRIMARY KEY, first_name TEXT NOT NULL, 
+//             last_name TEXT NOT NULL,cohort_id int NOT NULL,location TEXT); 
+//             CREATE TABLE pairings(id serial PRIMARY KEY, id1 integer NOT NULL, 
+//             name1 text NOT NULL, id2 integer,name2 text, cycles_id integer, rating integer,
+//             rating_comment text, comment text); CREATE TABLE set_of_pairs(id serial PRIMARY KEY,
+//             pair1 integer, pair2 integer, pair3 integer, cycles_id integer, expected_rating NUMERIC(4, 2),
+//             actual_rating integer,frozen bool default 'false', comment text);
+//       `)
+//       .then(result => resolve(result))
+//       .catch(err => reject(err));
+//   });
+// }
 
 
 // this function deletes the entire database.
 // we'll call it in an `afterEach` block below
 // to ensure  that data from one test does not stick
 // around for next one
-function tearDownDb() {
-  return new Promise((resolve, reject) => {
-    console.warn('Deleting database');
-    knex.raw(`DROP TABLE IF EXISTS set_of_pairs; 
-            DROP TABLE IF EXISTS pairings; DROP TABLE IF EXISTS cohort_members;`)
-      .then(result => resolve(result))
-      .catch(err => reject(err));
-  });
-}
+// function tearDownDb() {
+//   return new Promise((resolve, reject) => {
+//     console.warn('Deleting database');
+//     knex.raw(`DROP TABLE IF EXISTS set_of_pairs; 
+//             DROP TABLE IF EXISTS pairings; DROP TABLE IF EXISTS cohort_members;`)
+//       .then(result => resolve(result))
+//       .catch(err => reject(err));
+//   });
+// }
 
 // this function deletes all that data in the database.
 // we'll call it in an `afterEach` block below
@@ -121,7 +121,7 @@ function seedPairsData() {
 describe('blog posts API resource with user authentication', function () {
 
   before(function () {
-    return createDb();
+    return runServer(TEST_DATABASE, PORT);
   });
 
   beforeEach(function () {
@@ -135,7 +135,7 @@ describe('blog posts API resource with user authentication', function () {
   });
 
   after(function () {
-    return tearDownDb();
+    return closeServer();
   });
 
   // note the use of nested `describe` blocks.
@@ -154,6 +154,7 @@ describe('blog posts API resource with user authentication', function () {
         .get('/cohort_members')
         .then(_res => {
           res = _res;
+          console.log(res);
           res.should.have.status(200);
           // otherwise our db seeding didn't work
           res.body.should.have.length.of.at.least(1);
