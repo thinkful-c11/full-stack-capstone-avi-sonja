@@ -107,8 +107,9 @@ app.post('/cohort_members', jsonParser, (req,res)=>{
     res.status(400).send();
   }
   else{
-    console.log(req.body);
+    //console.log(req.body);
     knex('cohort_members').insert(req.body)
+        .returning(['id','first_name', 'last_name', 'cohort_id', 'location', 'active'])
         .then(results => res.json(results));
   }
 });

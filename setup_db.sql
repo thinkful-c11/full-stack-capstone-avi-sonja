@@ -62,6 +62,7 @@ CREATE TABLE set_of_pairs(
     expected_rating NUMERIC(4, 2),
     actual_rating integer,
     frozen bool default 'false',
+    current bool default 'false',
     comment text
 );
 

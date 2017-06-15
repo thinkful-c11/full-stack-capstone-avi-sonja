@@ -21,11 +21,6 @@ const { app, runServer, closeServer } = require('../server');
 
 chai.use(chaiHttp);
 
-// const {User} = require('../models');
-// User.hashPassword('test-password')
-//     .then(hash => console.log(hash));
-
-//password hash => $2a$10$JW/va21Tev0oCSaQVHTPh.R6fsioI8QlL5MndlEuRPneeYy1GfHVe
 
 const numInCohort = 6;
 
@@ -44,7 +39,7 @@ const numInCohort = 6;
 //             name1 text NOT NULL, id2 integer,name2 text, cycles_id integer, rating integer,
 //             rating_comment text, comment text); CREATE TABLE set_of_pairs(id serial PRIMARY KEY,
 //             pair1 integer, pair2 integer, pair3 integer, cycles_id integer, expected_rating NUMERIC(4, 2),
-//             actual_rating integer,frozen bool default 'false', comment text);
+//             actual_rating integer,frozen bool default 'false', current bool default 'false', comment text);
 //       `)
 //       .then(result => resolve(result))
 //       .catch(err => reject(err));
@@ -157,7 +152,7 @@ describe('blog posts API resource with user authentication', function () {
         .get('/cohort_members')
         .then(_res => {
           res = _res;
-          console.log(res);
+          //console.log(res);
           res.should.have.status(200);
           // otherwise our db seeding didn't work
           res.body.should.have.length.of.at.least(1);
@@ -171,12 +166,12 @@ describe('blog posts API resource with user authentication', function () {
         });
     });
 
-    it('should return cohort members with right fields', function () {
-      // Strategy: Get back all posts, and ensure they have expected keys
+    it('should return active cohort members with right fields', function () {
+      // Strategy: Get back all active cohort members, and ensure they have expected keys
 
       let resCM;
       return chai.request(app)
-        .get('/cohort_members')
+        .get('/cohort_members/active')
         .then(function (res) {
 
           res.should.have.status(200);
@@ -186,7 +181,7 @@ describe('blog posts API resource with user authentication', function () {
 
           res.body.forEach(function (cm) {
             cm.should.be.a('object');
-            cm.should.include.keys('id','first_name', 'last_name', 'cohort_id', 'location');
+            cm.should.include.keys('id','first_name', 'last_name', 'cohort_id', 'location', 'active');
           });
           // just check one of the posts that its values match with those in db
           // and we'll assume it's true for rest
@@ -199,150 +194,58 @@ describe('blog posts API resource with user authentication', function () {
           resCM.last_name.should.equal(cm[0].last_name);
           resCM.cohort_id.should.equal(cm[0].cohort_id);
           resCM.location.should.equal(cm[0].location);
+          resCM.active.should.equal(cm[0].active);
         });
     });
   });
 
-//   describe('POST endpoint', function () {
-//     // strategy: make a POST request with data,
-//     // then prove that the post we get back has
-//     // right keys, and that `id` is there (which means
-//     // the data was inserted into db)
-//     const fakeFName = faker.name.firstName();
-//     const fakeLName = faker.name.lastName();
+//insert into cohort_members (first_name, last_name, cohort_id, location) 
+//values ('Petyr', 'Baelish', 1, 'Meereen');
 
-//     const newPost = {
-//       title: faker.lorem.sentence(),
-//       author: {
-//         firstName: fakeFName,
-//         lastName: fakeLName,
-//       },
-//       content: faker.lorem.text()
-//     };
+  describe('POST endpoint', function () {
+    // strategy: make a POST request with data,
+    // then prove that the post we get back has
+    // right keys, and that `id` is there (which means
+    // the data was inserted into db)
+    //const fakeFName = faker.name.firstName();
+    //const fakeLName = faker.name.lastName();
 
-//     it('should add a new blog post', function () {
+    const newCM = {
+      first_name: 'Bran', 
+      last_name:'Stark',
+      cohort_id: 1,
+      location: 'unknown'
+    };
 
-//       let user;
+    it('should add a new blog post', function () {
 
-//       return User.create({
-//         username: faker.internet.userName(),
-//         // Substitute the hash you generated here
-//         password: '$2a$10$JW/va21Tev0oCSaQVHTPh.R6fsioI8QlL5MndlEuRPneeYy1GfHVe',
-//         firstName: fakeFName,
-//         lastName: fakeLName
-//       })
-//         .then(_user => user = _user)
-//         .then(() => {
-//           // console.log(user.username);
-//           return chai.request(app).post('/posts').auth(user.username, 'test-password').send(newPost);
-//         })
-//         .then(function (res) {
-//           res.should.have.status(201);
-//           res.should.be.json;
-//           res.body.should.be.a('object');
-//           res.body.should.include.keys(
-//             'id', 'title', 'content', 'author', 'created');
-//           res.body.title.should.equal(newPost.title);
-//           // cause Mongo should have created id on insertion
-//           res.body.id.should.not.be.null;
-//           res.body.author.should.equal(
-//             `${newPost.author.firstName} ${newPost.author.lastName}`);
-//           res.body.content.should.equal(newPost.content);
-//           return BlogPost.findById(res.body.id).exec();
-//         })
-//         .then(function (post) {
-//           post.title.should.equal(newPost.title);
-//           post.content.should.equal(newPost.content);
-//           post.author.firstName.should.equal(newPost.author.firstName);
-//           post.author.lastName.should.equal(newPost.author.lastName);
-//         });
-//     });
-//   });
-
-//   describe('POST endpoint credentials', function() {
-//     const fakeFName = faker.name.firstName();
-//     const fakeLName = faker.name.lastName();
-
-//     const newPost = {
-//       title: faker.lorem.sentence(),
-//       author: {
-//         firstName: fakeFName,
-//         lastName: fakeLName,
-//       },
-//       content: faker.lorem.text()
-//     };
-
-//     it('should not let you add if you pass invalid credentials', function() {
-//       let user;
-//       const uName = faker.internet.userName();
-//       const pWord = faker.internet.password();
-//       return User.create({
-//         username: faker.internet.userName(),
-//         // Substitute the hash you generated here
-//         // passord is hashed from 'test-password'
-//         password: '$2a$10$JW/va21Tev0oCSaQVHTPh.R6fsioI8QlL5MndlEuRPneeYy1GfHVe',
-//         firstName: fakeFName,
-//         lastName: fakeLName
-//       })
-//       // faker.internet.userName(), faker.internet.password()
-//         .then(_user => user = _user)
-//         .then(() => {
-//           return chai.request(app).post('/posts').auth(uName, pWord).send(newPost);
-//         })
-//         .then(function (res) {
-//           res.should.not.have.status(201);
-//           res.should.not.be.json;
-//           res.body.should.not.be.a('object');
-//           res.body.should.not.include.keys(
-//             'id', 'title', 'content', 'author', 'created');
-//           res.body.title.should.not.equal(newPost.title);
-//           // cause Mongo should have created id on insertion
-//           res.body.id.should.be.null || res.body.id.should.be.undefined;
-//           res.body.author.should.not.equal(
-//             `${newPost.author.firstName} ${newPost.author.lastName}`);
-//           res.body.content.should.not.equal(newPost.content);
-//         })
-//         .catch(function(err) {
-//           // console.error(err);
-//           err.should.be.an('error');
-//         });
-//     });
-//   });
-
-//   describe('POST endpoint for user creation', function(){
-//     // strategy: make a POST request to create a user,
-//     // then prove that the user we get back has
-//     // right keys, with the expected hash value,
-//     // and that `id` is there (which means
-//     // the data was inserted into db)
-
-//     it('should create a user', function(){
-
-//       const fakeFName = faker.name.firstName();
-//       const fakeLName = faker.name.lastName();
-//       const hash = '$2a$10$JW/va21Tev0oCSaQVHTPh.R6fsioI8QlL5MndlEuRPneeYy1GfHVe';
-
-//       const newUser = {
-//         username: faker.internet.userName(),
-//         // Substitute the hash you generated here
-//         password: 'test-password',
-//         firstName: fakeFName,
-//         lastName: fakeLName
-//       };
-
-//       return chai.request(app)
-//         .post('/users')
-//         .send(newUser)
-//         .then(function(res){
-//           res.should.have.status(201);
-//           res.should.be.json;
-//           res.body.should.be.a('object');
-//           res.body.should.include.keys(
-//             'username', 'firstName', 'lastName');
-//           res.body.username.should.equal(newUser.username);
-//         });
-//     });
-//   });
+      let user;
+      return chai.request(app)
+        .post('/cohort_members')
+        .send(newCM)
+        .then(function (res) {
+          //console.log(res.body[0]);
+          res.should.have.status(200);
+          res.should.be.json;
+          res.body[0].should.be.a('object');
+          res.body[0].should.include.keys(
+            'id', 'first_name', 'last_name', 'cohort_id', 'location');
+          res.body[0].location.should.equal(newCM.location);
+          // cause Mongo should have created id on insertion
+          res.body[0].id.should.not.be.null;
+          res.body[0].first_name.should.equal(newCM.first_name);
+          res.body[0].last_name.should.equal(newCM.last_name);
+          return knex('cohort_members').where('id', res.body[0].id).then(result => result);
+        })
+        .then(cm => {
+          //console.log(cm);
+          cm[0].first_name.should.equal(newCM.first_name);
+          cm[0].last_name.should.equal(newCM.last_name);
+          cm[0].cohort_id.should.equal(newCM.cohort_id);
+          cm[0].location.should.equal(newCM.location);
+        });
+    });
+  });
 
 
 //   describe('PUT endpoint', function () {
@@ -468,84 +371,46 @@ describe('blog posts API resource with user authentication', function () {
 
 
 
+  describe('DELETE endpoint', function () {
+    // strategy:
+    //  1. get a cohort member
+    //  2. make a DELETE request for that cohort member's id
+    //  3. assert that response has right status code
+    //  4. prove that cohort member with the id is inactive in the db
+    
+    const newCM = {
+      first_name: 'Bran', 
+      last_name:'Stark',
+      cohort_id: 1,
+      location: 'unknown'
+    };
 
+    it('should delete a cohort member by id', function () {
 
+      let cm;
 
+      return knex('cohort_members').insert(newCM)
+        .returning(['id','first_name', 'last_name', 'cohort_id', 'location'])
+        .then(result => result)
+        .then(_cm => cm = _cm)
+        .then(() => {
+          return chai.request(app).delete(`/cohort_members/${cm[0].id}`).then(result => result);
+        })
+        .then(res => {
+          res.should.have.status(200);
+          return knex('cohort_members').where('id', cm[0].id).then(res1 => res1);
+        })
+        .then(cm1 => {
+          //console.log(_cm);
+          // when a variable's value is null, chaining `should`
+          // doesn't work. so `_post.should.be.null` would raise
+          // an error. `should.be.null(_post)` is how we can
+          // make assertions about a null value.
+          cm1[0].id.should.equal(cm[0].id);
+          cm1[0].active.should.equal(false);
+        });
+    });
 
-//   describe('DELETE endpoint', function () {
-//     // strategy:
-//     //  1. get a post
-//     //  2. make a DELETE request for that post's id
-//     //  3. assert that response has right status code
-//     //  4. prove that post with the id doesn't exist in db anymore
-//     const fakeFName = faker.name.firstName();
-//     const fakeLName = faker.name.lastName();
+  });
 
-//     it('should delete a post by id', function () {
-
-//       let post;
-//       let user;
-
-//       return User.create({
-//         username: faker.internet.userName(),
-//         // Substitute the hash you generated here
-//         password: '$2a$10$JW/va21Tev0oCSaQVHTPh.R6fsioI8QlL5MndlEuRPneeYy1GfHVe',
-//         firstName: fakeFName,
-//         lastName: fakeLName
-//       })
-//         .then(_user => user = _user)
-//         .then(() => {
-//           return BlogPost
-//             .findOne()
-//             .exec()
-//             .then(_post => {
-//               post = _post;
-//               return chai.request(app).delete(`/posts/${post.id}`).auth(user.username, 'test-password');
-//             });
-//         })
-//         .then(res => {
-//           res.should.have.status(204);
-//           return BlogPost.findById(post.id);
-//         })
-//         .then(_post => {
-//           // when a variable's value is null, chaining `should`
-//           // doesn't work. so `_post.should.be.null` would raise
-//           // an error. `should.be.null(_post)` is how we can
-//           // make assertions about a null value.
-//           should.not.exist(_post);
-//         });
-//     });
-
-
-//     it('should not delete a post by id with improper credentials', function () {
-
-//       let post;
-//       let user;
-
-//       return User.create({
-//         username: faker.internet.userName(),
-//         // Substitute the hash you generated here
-//         password: '$2a$10$JW/va21Tev0oCSaQVHTPh.R6fsioI8QlL5MndlEuRPneeYy1GfHVe',
-//         firstName: fakeFName,
-//         lastName: fakeLName
-//       })
-//         .then(_user => user = _user)
-//         .then(() => {
-//           return BlogPost
-//             .findOne()
-//             .exec()
-//             .then(_post => {
-//               post = _post;
-//               return chai.request(app).delete(`/posts/${post.id}`)
-//               .auth(faker.internet.userName(), faker.internet.password());
-//             });
-//         })
-//         .then(res => {
-//           res.should.not.have.status(204);
-//         })
-//         .catch(function(err){
-//           err.should.be.an('error');
-//         });
-//     });
-//   });
 });
