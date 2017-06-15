@@ -45,7 +45,7 @@ app.get('/cohort_members/indiv/:id', (req, res)=> {
 });
 
 app.get('/todays_pairs', (req, res)=>{
-  knex.select('pair1', 'pair2', 'pair3', 'expected_rating')
+  knex.select('pair1', 'pair2', 'pair3')
    .from('set_of_pairs')
    .where('current', 'true')
    .then(results => {
@@ -59,7 +59,7 @@ app.get('/todays_pairs', (req, res)=>{
 
 //GET the pairing by ID of set of pairs
 app.get('/todays_pairs/:id', (req, res)=>{
-  knex.select('pair1', 'pair2', 'pair3', 'expected_rating')
+  knex.select('pair1', 'pair2', 'pair3')
    .from('set_of_pairs')
    .where('id', req.params.id)
    .then(results => {
@@ -74,26 +74,27 @@ app.get('/todays_pairs/:id', (req, res)=>{
 
 //GET the current day's pairing
 app.get('/admin/todays_pairs/', (req, res)=>{
-  knex.select('pair1', 'pair2', 'pair3', 'expected_rating')
+  knex.select('pair1', 'pair2', 'pair3')
    .from('set_of_pairs')
    .where('current', 'true')
    .then(results => {
      console.log(results[0]);
-     return knex('pairings').whereIn('id', [results[0].pair1, results[0].pair2, results[0].pair3])
-            .then(res2 => (Object.assign({'expected_rating':results[0].expected_rating},res2)))
+     return knex('pairings')
+            .whereIn('id', [results[0].pair1, results[0].pair2, results[0].pair3])
+            //.then(res2 => (Object.assign({'expected_rating':results[0].expected_ratres2)))
             .then(res3 => res.json(res3));
    });
 });
 
 //GET the pairing by ID of set of pairs
 app.get('/admin/todays_pairs/:id', (req, res)=>{
-  knex.select('pair1', 'pair2', 'pair3', 'expected_rating')
+  knex.select('pair1', 'pair2', 'pair3')
    .from('set_of_pairs')
    .where('id', req.params.id)
    .then(results => {
      console.log(results[0]);
      return knex('pairings').whereIn('id', [results[0].pair1, results[0].pair2, results[0].pair3])
-            .then(res2 => (Object.assign({'expected_rating':results[0].expected_rating},res2)))
+            //.then(res2 => (Object.assign({'expected_rating':results[0].expected_rating},res2)))
             .then(res3 => res.json(res3));
    });
 });
