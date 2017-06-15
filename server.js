@@ -123,6 +123,7 @@ app.put('/cohort_members/:id', jsonParser, (req, res)=> {
     knex('cohort_members')
       .update('location', req.body.location)
       .where('id', req.params.id)
+      .returning(['id','first_name', 'last_name', 'cohort_id', 'location', 'active'])
       .then(results => res.json(results));
   }
 });
