@@ -16,13 +16,13 @@ function render(state){
   let htmlDisplay='';
   if(state.showPairingsList===true){
     state.pairingsList.forEach(element => {
-      //htmlDisplay += `<div class="show-daily-pairs"><div class="col-6 left-names"><p>${element.name1}</p></div><div class="col-6 right-names"><p>${element.name2}</p></div></div>`
+      //htmlDisplay += `<div class="show-daily-pairs"><div class="col-6 left-names">`; //<p>${element.name1}</p></div><div class="col-6 right-names"><p>${element.name2}</p></div></div>`
       htmlDisplay += `<p>${element.name1} `;
       if (element.name2) {
         htmlDisplay += `& ${element.name2}</p>`;
       }
       else{
-        htmlDisplay += `</p>`;
+        htmlDisplay += `</p>`; //</div></div>`;
       }
       //console.log("This is partner 1: " + element.name1);
       //console.log("This is partner 2: " + element.name2);
