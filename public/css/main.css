@@ -309,3 +309,20 @@ footer a:link{
 p{
     font-weight: bold;
 }
+.dashboard-links a{
+    display: block;
+    margin: 1em;
+    text-decoration: none;
+}
+.dashboard-links a:link{
+    color: black;
+    text-decoration: none;
+}
+.dashboard-links a:hover{
+    color: #2793cb;
+    text-decoration: none;
+}
+.dashboard-links a:visited{
+    color: black;
+    text-decoration: none;
+}
