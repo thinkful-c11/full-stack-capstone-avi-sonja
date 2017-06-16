@@ -111,10 +111,14 @@ header h1{
     border: none;
     padding: .5em;
 }
+#submit-form:hover{
+    background: #2793cb; 
+}
+
 #submit-form{
     display: block;
     border: none;
-    background: #4bb8d8;
+    background: #bbc2c7;
     color: white;
     border-radius: .5em;
     padding: .5em .7em;
@@ -223,13 +227,25 @@ footer a:link{
     margin-bottom: 1.5em;
 }
 
+.rotate:hover{
+  background: #2793cb; 
+}
+
 .rotate{
     display: block;
     margin-top: 2em;
     width: 20%;
     margin-left: auto;
     margin-right: auto;
+    border: none;
+    background: #bbc2c7;
+    color: white;
+    border-radius: .5em;
+    padding: .5em .7em;
+    font-size: 1em;
 }
+
+
 .create-add-user-form,.create-update-user-form,.remove-student-box,.student-user-user-id,.student-user-user-first-name,.student-user-user-last-name,.student-user-cohort-id,.student-user-location{
     background-color:rgba(209,220,229,.6)
 }
