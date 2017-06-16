@@ -222,7 +222,22 @@ footer a:link{
 .remove-student-option,.remove-student-box{
     width: 5em;
     border-radius: .25em;
+}
+.remove-student-option{
     background-color: white;
+}
+.remove-student-row{
+    border: none;
+    background: white;
+    color: #bbc2c7;
+    font-size: 1em;
+    margin-left: auto;
+    margin-right: auto;
+}
+.remote-student-box{
+    background-color: white;
+    /*padding: .5em 1em;*/
+    /*font-size: 1em;*/
 }
 .staticgrid{
     background: #d1dce5;

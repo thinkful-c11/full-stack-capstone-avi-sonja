@@ -18,7 +18,7 @@ function render(state){
         state.pairingsList.forEach(element => {
             if(element.active===true){
             //<div class="grid remove-student-option"><span class="X">X</span>
-            htmlDisplay += `<div class="show-admin-chart"><div class="grid remove-student-option"><span class="X"><button data-rabbits="${element.id}" class="remove-student-row" type="button">X</button></span></div><div class="user-user-id grid">${element.id}</div><div class="user-name-first grid">${element.first_name}</div><div class="user-name-last grid">${element.last_name}</div><div class="user-cohort-id grid">${element.cohort_id}</div><div class="user-user-location grid">${element.location}</div></div>`
+            htmlDisplay += `<div class="show-admin-chart"><div class="grid remove-student-option"><span class="X"><button data-rabbits="${element.id}" class="remove-student-row" type="button">☒</button></span></div><div class="user-user-id grid">${element.id}</div><div class="user-name-first grid">${element.first_name}</div><div class="user-name-last grid">${element.last_name}</div><div class="user-cohort-id grid">${element.cohort_id}</div><div class="user-user-location grid">${element.location}</div></div>`
             }
             //htmlDisplay += `<p>Please work!</p>`
             //console.log("This is partner 1: " + element.name1);
