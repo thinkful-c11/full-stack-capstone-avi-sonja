@@ -132,6 +132,8 @@ header h1{
     text-align: center;
 }
 .add-user-form h3{
+    margin-top: -.25em;
+    margin-bottom: -.25em;
     font-weight: 300;
     font-family: 'Open Sans', sans-serif;
     font-size: 1.5em;
@@ -170,6 +172,8 @@ header h1{
     margin: 1em;
 }
 .add-cohorts-form h3{
+    margin-top: -.25em;
+    margin-bottom: -.25em;
     font-weight: 300;
     font-family: 'Open Sans', sans-serif;
     font-size: 1.5em;
@@ -239,7 +243,7 @@ footer a:link{
     margin-left: auto;
     margin-right: auto;
 }
-.create-add-user-form,.create-update-user-form,.remove-student-box,.student-user-user-id,.student-user-user-first-name,.student-user-user-last-name,.student-user-cohort-id,.student-user-location{
+.staticgrid,.create-add-user-form,.create-update-user-form,.add-user-form,.add-cohorts-form,.remove-student-box,.student-user-user-id,.student-user-user-first-name,.student-user-user-last-name,.student-user-cohort-id,.student-user-location{
     background-color:rgba(209,220,229,.6)
 }
 .make-this-work{
