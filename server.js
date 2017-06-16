@@ -18,6 +18,7 @@ app.use(express.static('public'));
 //GET all students from the cohort table
 app.get('/cohort_members',(req,res)=>{
   knex('cohort_members')
+      .orderBy('id')
       .then(results=>res.json(results));
 });
 
@@ -25,6 +26,7 @@ app.get('/cohort_members',(req,res)=>{
 app.get('/cohort_members/active',(req,res)=>{
   knex('cohort_members')
       .where('active', 'true')
+      .orderBy('id')
       .then(results=>res.json(results));
 });
 
