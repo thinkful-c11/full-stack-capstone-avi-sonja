@@ -59,8 +59,6 @@ function getContents(){
       appState.pairingsList=json;
       render(appState);
     },
-        // success: function(result){
-        //     $('.student-pairings-chart').html(result);
   });
 }
 
@@ -76,19 +74,9 @@ function getContentsByID(id){
       appState.pairingsList=json;
       render(appState);
     },
-        // success: function(result){
-        //     $('.student-pairings-chart').html(result);
+        
   });
 }
-// let testShowing;
-// $.get('/todays_pairs', function(result){
-//     testShowing=result;
-// })
-// $.getJSON('/server.js', function(){
-    
-// })
-// $(.student-pairings-chart).load('/');
-// console.log(response);
 
 //RUN THIS CUTENESS
 $(function(){
