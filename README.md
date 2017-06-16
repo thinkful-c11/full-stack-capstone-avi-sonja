@@ -1,3 +1,8 @@
-# Thinkful Full Stack Capstone - Avi and Sonja
+# Cohort of Thrones with Rabbits in Wonderland 
+## A students pairing tool
 
-Help instructors and students by creating and keeping track of pairings.
+### API Documentation
+
+### Summary
+
+###
