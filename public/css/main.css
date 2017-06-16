@@ -5,20 +5,34 @@
     margin-left: auto;
     margin-right: auto;
 }
+
+.bg{
+    background: url('https://s-media-cache-ak0.pinimg.com/736x/82/d7/5b/82d75b3c7fa6707a0b089bee87913e2a.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: left center;
+    background-repeat: no-repeat;
+}
+
 body, footer{
     font-family: 'Open Sans', sans-serif;
     font-weight: 300;
     text-align: center;
 }
 .divider{
-    background-color: #787d7e;
+    background-color: #2690ca;
     height: .5em;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
 }
+
 header h1{
     text-align: center;
     font-size: 3em;
     font-family: 'Open Sans', sans-serif;
-    font-weight: 300;
+    font-weight: 500;
+    color: #2690ca;
 }
 .login-form h2{
     margin-top: -.5em;
@@ -168,18 +182,22 @@ footer a:link{
 .partner-1-name,.partner-2-name,.user-name-first,.user-name-last,.user-user-location{
     width: 10em;
     border-radius: .25em;
+    background-color: white;
 }
 .student-user-user-first-name,.student-user-user-last-name,.student-user-location{
     width: 10em;
     border-radius: .25em;
+    background-color: white;
 }
 .partner-cycle-id,.partner-1-id,.partner-2-id,.partner-ratings,.user-cohort-id,.user-user-id,.student-user-cohort-id,.student-user-user-id{
     width: 5em;
     border-radius: .25em;
+    background-color: white;
 }
 .remove-student-option,.remove-student-box{
     width: 5em;
     border-radius: .25em;
+    background-color: white;
 }
 .staticgrid{
     background: #d1dce5;
@@ -195,4 +213,12 @@ footer a:link{
 }
 .concept-users-chart{
     margin-bottom: 1.5em;
+}
+
+.rotate{
+    display: block;
+    margin-top: 2em;
+    width: 20%;
+    margin-left: auto;
+    margin-right: auto;
 }

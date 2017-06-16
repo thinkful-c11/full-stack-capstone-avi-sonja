@@ -80,11 +80,9 @@ function clearTablesDb() {
 }
 
 
-// used to put randomish documents in db
+// used to put known seed data in db
 // so we have data to work with and assert about.
-// we use the Faker library to automatically
-// generate placeholder values for author, title, content
-// and then we insert that data into mongo
+
 function seedPairsData() {
   return new Promise((resolve, reject) => {
     console.warn('Seeding data in the database');

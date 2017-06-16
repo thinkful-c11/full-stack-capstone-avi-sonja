@@ -72,6 +72,7 @@ app.get('/todays_pairs/:id', (req, res)=>{
 });
 
 
+
 //GET the current day's pairing
 app.get('/admin/todays_pairs/', (req, res)=>{
   knex.select('pair1', 'pair2', 'pair3')
@@ -178,4 +179,4 @@ if (require.main === module) {
 
 module.exports = { app, runServer, closeServer };
 
-//app.listen(PORT || 8080,function(){console.log("This is now listening");});
+//app.listen(PORT || 8080,function(){console.log("This is now listening");});}
