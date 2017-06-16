@@ -56,9 +56,13 @@ function eventHandlers(){
             contentType: 'application/json',
             data: JSON.stringify(data),
             success: function(json){
-                //console.log(json);
+                console.log(json);
+                appState.pairingsList.push(json[0]);
+                console.log(appState);
+                render(appState);
             },
         });
+        render(appState);
     });
     $('.create-update-user-form').submit(function(event) {
         event.preventDefault();
@@ -76,6 +80,16 @@ function eventHandlers(){
                 console.log(json);
             },
         });
+        appState.pairingsList.forEach(element=>{
+            console.log(element.id);
+            console.log(data.id);
+           if(element.id==data.id){
+               element.location=data.location;
+               console.log(element);
+           }
+        });
+        console.log(appState);
+        render(appState);
     });
     $('.concept-users-chart').on('click','.remove-student-row', function(event){
        event.preventDefault();
@@ -97,7 +111,7 @@ function eventHandlers(){
             }
         });
         render(appState)
-        console.log(appState);
+        //console.log(appState);
     });
     render(appState);
 }
