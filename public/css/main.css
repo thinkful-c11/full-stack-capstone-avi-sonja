@@ -13,7 +13,36 @@
     background-position: left center;
     background-repeat: no-repeat;
 }
-
+/*.bg-create-users{*/
+/*    background: url('http://i.imgur.com/RUzTVQ5.jpg');*/
+/*    background-attachment: absolute;*/
+/*    background-size: 50% 50%;*/
+/*    background-position: left bottom;*/
+/*    background-repeat: no-repeat;*/
+/*    z-index: 1;*/
+/*}*/
+/*.bg-create-users2{*/
+/*    background: url('http://i.imgur.com/ijVDnqZ.jpg');*/
+/*    background-attachment: absolute;*/
+/*    background-size: 100%;*/
+/*    background-position: left bottom;*/
+/*    background-repeat: no-repeat;*/
+/*    z-index: -1;*/
+/*}*/
+.
+.backgrounds{
+    position: absolute;
+    background-repeat: no-repeat;
+}
+.geometric{
+    background: url('https://i.imgur.com/ijVDnqZ.jpg');
+    background-size: cover;
+}
+.rabbit{
+    background: url('https://i.imgur.com/RUzTVQ5.jpg');
+    background-size: 50% 50%;
+    background-position: left bottom;
+}
 body, footer{
     font-family: 'Open Sans', sans-serif;
     font-weight: 300;
