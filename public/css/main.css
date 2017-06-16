@@ -81,6 +81,10 @@ header h1{
     display: block;
     margin: 1em;
 }
+.add-comments-form label{
+    display: block;
+    margin: 1em;
+}
 .create-add-user-form label{
     display: block;
     margin: 1em;
@@ -96,7 +100,7 @@ header h1{
     display: block;
     margin: 1em;
 }
-.add-user-form,.add-cohorts-form,.create-add-user-form,.create-update-user-form,.create-remove-user-form{
+.add-user-form,.add-comments-form,.add-cohorts-form,.create-add-user-form,.create-update-user-form,.create-remove-user-form{
     box-sizing: border-box;
     /*padding: .2em;*/
     padding-left: 1em;
@@ -109,13 +113,13 @@ header h1{
     margin-right: auto;
     border-radius: 2em;
 }
-.add-user-form,.add-cohorts-form,.create-remove-user-form{
+.add-user-form,.add-cohorts-form,.create-remove-user-form,.add-comments-form{
     margin-top: 3em;
 }
 .create-update-user-form{
     margin-top: 1em;
 }
-#user-first-name,#user-last-name,#user-cohort-id,#user-location,#cohort-cohort-name,#student-user-id,#student-user-location{
+#partner-comments,#user-first-name,#user-last-name,#user-cohort-id,#user-location,#cohort-cohort-name,#student-user-id,#student-user-location{
     border-radius: .5em;
     border: none;
     padding: .5em;
@@ -136,10 +140,18 @@ header h1{
     margin-left: auto;
     margin-right: auto;
 }
-.add-user-form,.add-cohorts-form,.create-add-user-form{
+.add-user-form,.add-cohorts-form,.create-add-user-form.add-comments-form{
     text-align: center;
 }
 .add-user-form h3{
+    margin-top: -.25em;
+    margin-bottom: -.25em;
+    font-weight: 300;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.5em;
+    text-align: center;
+}
+.add-comments-form h3{
     margin-top: -.25em;
     margin-bottom: -.25em;
     font-weight: 300;
@@ -279,7 +291,7 @@ footer a:link{
     padding: .5em .7em;
     font-size: 1em;
 }
-.staticgrid,.create-add-user-form,.create-update-user-form,.add-user-form,.add-cohorts-form,.remove-student-box,.student-user-user-id,.student-user-user-first-name,.student-user-user-last-name,.student-user-cohort-id,.student-user-location{
+.staticgrid,.add-comments-form,.create-add-user-form,.create-update-user-form,.add-user-form,.add-cohorts-form,.remove-student-box,.student-user-user-id,.student-user-user-first-name,.student-user-user-last-name,.student-user-cohort-id,.student-user-location{
     background-color:rgba(209,220,229,.6)
 }
 .make-this-work{
