@@ -4,16 +4,8 @@ const app=express();
 const {DATABASE,PORT} =require('./config');
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
-//const knex=require('knex')(DATABASE);
-//const{Pairing}=require('./models.js');
 app.use(express.static('public'));
 
-
-// //GET
-// // Does this work?
-// app.get('/',(req,res)=>{
-//   res.send.('Rabbits Cheesecake Cutethings'); 
-// });
 
 //GET all students from the cohort table
 app.get('/cohort_members',(req,res)=>{
@@ -40,12 +32,14 @@ app.get('/cohort_members/:cid', (req, res)=>{
     }).then(results => res.json(results));
 });
 
+//GET an individual student by ID
 app.get('/cohort_members/indiv/:id', (req, res)=> {
   knex('cohort_members')
     .where('id', req.params.id)
     .then(results => res.json(results));
 });
 
+//GET the set of pairings for today's pairing
 app.get('/todays_pairs', (req, res)=>{
   knex.select('pair1', 'pair2', 'pair3')
    .from('set_of_pairs')
@@ -75,7 +69,7 @@ app.get('/todays_pairs/:id', (req, res)=>{
 
 
 
-//GET the current day's pairing
+//GET the current day's pairing with all info in the database
 app.get('/admin/todays_pairs/', (req, res)=>{
   knex.select('pair1', 'pair2', 'pair3')
    .from('set_of_pairs')
@@ -89,7 +83,7 @@ app.get('/admin/todays_pairs/', (req, res)=>{
    });
 });
 
-//GET the pairing by ID of set of pairs
+//GET the pairing by ID of set of pairs with all data in the database
 app.get('/admin/todays_pairs/:id', (req, res)=>{
   knex.select('pair1', 'pair2', 'pair3')
    .from('set_of_pairs')
