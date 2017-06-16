@@ -13,35 +13,11 @@
     background-position: left center;
     background-repeat: no-repeat;
 }
-/*.bg-create-users{*/
-/*    background: url('http://i.imgur.com/RUzTVQ5.jpg');*/
-/*    background-attachment: absolute;*/
-/*    background-size: 50% 50%;*/
-/*    background-position: left bottom;*/
-/*    background-repeat: no-repeat;*/
-/*    z-index: 1;*/
-/*}*/
-/*.bg-create-users2{*/
-/*    background: url('http://i.imgur.com/ijVDnqZ.jpg');*/
-/*    background-attachment: absolute;*/
-/*    background-size: 100%;*/
-/*    background-position: left bottom;*/
-/*    background-repeat: no-repeat;*/
-/*    z-index: -1;*/
-/*}*/
-.
-.backgrounds{
-    position: absolute;
-    background-repeat: no-repeat;
-}
-.geometric{
-    background: url('https://i.imgur.com/ijVDnqZ.jpg');
-    background-size: cover;
-}
-.rabbit{
-    background: url('https://i.imgur.com/RUzTVQ5.jpg');
+.rabbitrabbit{
+    background: url('../images/rabbitwhitebackground.jpg');
     background-size: 50% 50%;
     background-position: left bottom;
+    background-repeat: no-repeat;
 }
 body, footer{
     font-family: 'Open Sans', sans-serif;
@@ -104,6 +80,9 @@ header h1{
     display: block;
     margin: 1em;
 }
+.form-parts{
+    display: inline-block;
+}
 .create-update-user-form label{
     display: block;
     margin: 1em;
@@ -113,10 +92,10 @@ header h1{
     margin: 1em;
 }
 .add-user-form,.add-cohorts-form,.create-add-user-form,.create-update-user-form,.create-remove-user-form{
-    padding: 3em;
+    padding: 1em;
     box-sizing: border-box;
     background: #d1dce5;
-    width: 25em;
+    /*width: 25em;*/
     margin-left: auto;
     margin-right: auto;
     border-radius: 2em;
@@ -125,9 +104,9 @@ header h1{
     margin-top: 3em;
 }
 .create-update-user-form{
-    margin-bottom: 3em;
+    margin-top: 1em;
 }
-#user-first-name,#user-last-name,#user-cohort-id,#user-location,#cohort-cohort-name,#student-user-id{
+#user-first-name,#user-last-name,#user-cohort-id,#user-location,#cohort-cohort-name,#student-user-id,#student-user-location{
     border-radius: .5em;
     border: none;
     padding: .5em;
@@ -238,7 +217,7 @@ footer a:link{
     height: 2em;
 }
 .concept-users-header{
-    margin-top: 3em;
+    /*margin-top: 1em;*/
 }
 .concept-users-chart{
     margin-bottom: 1.5em;
@@ -250,4 +229,10 @@ footer a:link{
     width: 20%;
     margin-left: auto;
     margin-right: auto;
+}
+.create-add-user-form,.create-update-user-form,.remove-student-box,.student-user-user-id,.student-user-user-first-name,.student-user-user-last-name,.student-user-cohort-id,.student-user-location{
+    background-color:rgba(209,220,229,.6)
+}
+.make-this-work{
+    display: inline-block;
 }

@@ -12,50 +12,100 @@
     <link rel="stylesheet" href="../css/main.css">
 </head>
 <header>
-    <h1>Create Users</h1>
+    <h1>Manage Students</h1>
 </header>
-<body>
-    <div class="backgrounds">
-        <div class="geometric background-images"></div>
-        <div class="rabbit background-images"></div>
-    </div>
+<body class="rabbitrabbit">
     <div class="row">
-        <div class="col-6">
-            <!-- ### ADD USER FORM ### -->
+        <div class="col-12 chart-here">
+            <!---->
+            <div class="concept-users-header"></div><div class="staticgrid remove-student-box">Remove</div><div class="staticgrid student-user-user-id">ID #</div><div class="student-user-user-first-name staticgrid">First</div><div class="student-user-user-last-name staticgrid">Last</div><div class="student-user-cohort-id staticgrid">Cohort #</div><div class="staticgrid student-user-location">Location</div>
+            <div class="concept-users-chart"></div>
+        </div>
+        <div class="col-12">
+            <div class="make-this-work">
+                <!-- ### ADD USER FORM ### -->
             <form class="create-add-user-form">
                 <!-- ADD NEW USER HERE -->
                 <h3>Add New User</h3>
                 <!-- FIRST NAME HERE -->
+                <div class="form-parts">
                 <label for="first-name-form">First Name</label>
                 <input type="first-name" name="user-first-name" id="user-first-name" placeholder="Alice" required/>
+                </div>
                 <!-- LAST NAME HERE -->
+                <div class="form-parts">
                 <label for="last-name-form">Last Name</label>
                 <input type="last-name" name="user-last-name" id="user-last-name" placeholder="Liddell" required/>
+                </div>
                 <!-- COHORT ID NUMBER HERE -->
+                <div class="form-parts">
                 <label for="cohort-id-form">Cohort</label>
                 <input type="cohort-id" name="user-cohort-id" id="user-cohort-id" placeholder="3" required/>
+                </div>
                 <!-- LOCATION HERE -->
+                <div class="form-parts">
                 <label for="location-form">Location</label>
                 <input type="location" name="user-location" id="user-location" placeholder="Washington, DC"/>
+                </div>
                 <!-- SUBMIT TO ADD NEW USER BUTTON -->
                 <button type="submit-form" id="submit-form">Submit</button>
             </form>
-        </div>
-    <div class="col-6">
-        <!-- ### UPDATE USER FORM ### 
+            <!-- ### UPDATE USER FORM ### 
         This currently only updates the location -->
         <form class="create-update-user-form">
             <!-- UPDATE USER HERE -->
             <h3>Update User</h3>
             <!-- USER ID HERE -->
+            <div class="form-parts">
             <label for="student-id-form">Student ID</label>
             <input type="student-id" name="student-user-id" id="student-user-id" placeholder="1" required/>
+            </div>
             <!-- LOCATION HERE -->
+            <div class="form-parts">
             <label for="location-form">Location</label>
             <input type="location" name="student-user-location" id="student-user-location" placeholder="Wonderland"/>
+            </div>
             <!-- SUBMIT TO REMOVE USER BUTTON -->
             <button type="submit-form" id="submit-form">Submit</button>
         </form>
+            </div>
+        </div>
+        <!--<div class="col-6">-->
+            <!-- ### ADD USER FORM ### -->
+        <!--    <form class="create-add-user-form">-->
+                <!-- ADD NEW USER HERE -->
+        <!--        <h3>Add New User</h3>-->
+                <!-- FIRST NAME HERE -->
+        <!--        <label for="first-name-form">First Name</label>-->
+        <!--        <input type="first-name" name="user-first-name" id="user-first-name" placeholder="Alice" required/>-->
+                <!-- LAST NAME HERE -->
+        <!--        <label for="last-name-form">Last Name</label>-->
+        <!--        <input type="last-name" name="user-last-name" id="user-last-name" placeholder="Liddell" required/>-->
+                <!-- COHORT ID NUMBER HERE -->
+        <!--        <label for="cohort-id-form">Cohort</label>-->
+        <!--        <input type="cohort-id" name="user-cohort-id" id="user-cohort-id" placeholder="3" required/>-->
+                <!-- LOCATION HERE -->
+        <!--        <label for="location-form">Location</label>-->
+        <!--        <input type="location" name="user-location" id="user-location" placeholder="Washington, DC"/>-->
+                <!-- SUBMIT TO ADD NEW USER BUTTON -->
+        <!--        <button type="submit-form" id="submit-form">Submit</button>-->
+        <!--    </form>-->
+        <!--</div>-->
+    <!--<div class="col-6">-->
+        <!-- ### UPDATE USER FORM ### 
+    <!--    This currently only updates the location -->
+    <!--    <form class="create-update-user-form">-->
+            <!-- UPDATE USER HERE -->
+    <!--        <h3>Update User</h3>-->
+            <!-- USER ID HERE -->
+    <!--        <label for="student-id-form">Student ID</label>-->
+    <!--        <input type="student-id" name="student-user-id" id="student-user-id" placeholder="1" required/>-->
+            <!-- LOCATION HERE -->
+    <!--        <label for="location-form">Location</label>-->
+    <!--        <input type="location" name="student-user-location" id="student-user-location" placeholder="Wonderland"/>-->
+            <!-- SUBMIT TO REMOVE USER BUTTON -->
+    <!--        <button type="submit-form" id="submit-form">Submit</button>-->
+    <!--    </form>-->
             <!-- ### REMOVE USER FORM ### -->
             <!--<form class="create-remove-user-form" action="/cohort_members/:id" method="delete">-->
             <!-- REMOVE USER HERE -->
@@ -66,11 +116,6 @@
             <!-- SUBMIT TO REMOVE USER BUTTON -->
             <!--    <button type="submit-form" id="submit-form" formaction="/remove-user/">Submit</button>-->
         <!--</form>-->
-    </div>
-    <div class="col-12 chart-here">
-        <!---->
-        <div class="concept-users-header"></div><div class="staticgrid remove-student-box">Remove</div><div class="staticgrid student-user-user-id">ID #</div><div class="student-user-user-first-name staticgrid">First</div><div class="student-user-user-last-name staticgrid">Last</div><div class="student-user-cohort-id staticgrid">Cohort #</div><div class="staticgrid student-user-location">Location</div>
-        <div class="concept-users-chart"></div>
     </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
