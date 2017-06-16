@@ -65,9 +65,13 @@ header h1{
     border: none;
     padding: .5em;
 }
+#submit-button:hover{
+    background: #2793cb; 
+}
+
 #submit-button{
     border: none;
-    background: #4bb8d8;
+    background: #bbc2c7;
     color: white;
     border-radius: .5em;
     padding: .5em .7em;
@@ -198,7 +202,8 @@ footer a:link{
     border-color: black;
     display: inline-block;
     box-sizing: border-box;
-    height: 3em;
+    padding-top: 3px;
+    height: 2.1em;
 }
 .partner-rating-comments{
     width: 19em;
@@ -246,7 +251,9 @@ footer a:link{
     border-color: black;
     display: inline-block;
     box-sizing: border-box;
+    padding-top: 3px;
     height: 2em;
+    font-weight: bold;
 }
 .concept-users-header{
     /*margin-top: 1em;*/
@@ -277,4 +284,8 @@ footer a:link{
 }
 .make-this-work{
     display: inline-block;
+}
+
+p{
+    font-weight: bold;
 }
