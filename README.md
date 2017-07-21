@@ -1,8 +1,23 @@
 # Cohort of Thrones with Rabbits in Wonderland 
 
-A student pairings tool
+Our project allows administrators and project managers the ability to easily add and update student information while tracking student pairings. We aim to simplify the task of managing students to administrators, project managers, mentors,and so on, by various dashboards and splash pages for students to view their daily pairing.
 
-## API Documentation
+## How to use
+
+Take a look at our demo to see how we do things.
+
+* Home page with pairings (<a href="https://pacific-scrubland-37773.herokuapp.com/index.html">here</a>)
+* Dashboard with links to other dashboards (<a href="https://pacific-scrubland-37773.herokuapp.com/dashboard/dashboard.html">here</a>)
+
+## What is this?
+
+This is a full-stack web app created by two full-time Thinkful students, Sonja and Avi, made with love for our project managers to simplify their life when it comes to creating and showing daily pairs. Students can view their daily pair for the day on one page. Future implementations include a login for administrators, project managers, mentors, and TA's, with distinct separation of privilege and accessibility to access dashboards. Administrators and project managers can add, remove, or update student information. Mentors and TA's are able to add comments and notes to each daily pairing.
+
+## Features
+
+We currently feature the ability to add, update, or remove students which can be viewed in our demo <a href="https://pacific-scrubland-37773.herokuapp.com/dashboard/manage-students.html">here</a>.
+
+## API documentation
 
 //GET all students from the cohort table
 * '/cohort_members'
@@ -43,7 +58,7 @@ A student pairings tool
 
 Allows you to look at daily pairings as a regular user. For instructors/TAs/mentors be able to view daily pairings with meta data. For admins and project managers add, update, and delete users.
 
-## Technology Used
+## Technology used
 
 Front-end technologies
 * Custom grid.css format, jQuery
