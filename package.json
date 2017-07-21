@@ -1,7 +1,7 @@
 {
   "name": "full-stack-capstone-avi-sonja",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.6.0",
+  "description": "A series of dashboards for creating, adding, removing students and student pairs",
   "main": "server.js",
   "directories": {
     "test": "test"
