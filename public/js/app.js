@@ -7,21 +7,21 @@ const appState={
   id:1,
 };
 //STATE MODS
-function initialisePairsPage(state){
-  state.showPairingsList=true;
+function initialisePairsPage(){
+  appState.showPairingsList=true;
 }
 //RENDER
-function render(state){
+function render(){
   let presentPairingsList='';
   let htmlDisplay='';
-  if(state.showPairingsList===true){
-    state.pairingsList.forEach(element => {
+  if(appState.showPairingsList===true){
+    appState.pairingsList.forEach(element => {
       htmlDisplay += `<p>${element.name1} `;
       if (element.name2) {
         htmlDisplay += `& ${element.name2}</p>`;
       }
       else{
-        htmlDisplay += `</p>`; //</div></div>`;
+        htmlDisplay += `</p>`;
       }
     }); 
     $('.student-pairings-chart').html(htmlDisplay);
