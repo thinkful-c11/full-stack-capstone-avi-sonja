@@ -5,16 +5,16 @@ const appState={
   showPairingsList:true,
 };
 //STATE MODS
-function initialisePairsPage(){
-  appState.showPairingsList=true;
+function initialisePairsPage(state){
+  state.showPairingsList=true;
 }
 //RENDER
-function render(){
+function render(state){
   let presentPairingsList='';
   let htmlDisplay='';
   let dailyExpectedRating=''; //This is the expected overall rating of all pairs that day
-  if(appState.showPairingsList===true){
-    appState.pairingsList.forEach(element => {
+  if(state.showPairingsList===true){
+    state.pairingsList.forEach(element => {
       if(element.active===true){
         htmlDisplay += `<div class="show-admin-chart"><div class="grid remove-student-option"><span class="X"><button data-rabbits="${element.id}" class="remove-student-row" type="button">☒</button></span></div><div class="user-user-id grid">${element.id}</div><div class="user-name-first grid">${element.first_name}</div><div class="user-name-last grid">${element.last_name}</div><div class="user-cohort-id grid">${element.cohort_id}</div><div class="user-user-location grid">${element.location}</div></div>`;
       }
