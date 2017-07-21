@@ -5,17 +5,17 @@ const appState={
   showPairingsList:true,
 };
 //STATE MODS
-function initialisePairsPage(state){
-  state.showPairingsList=true;
+function initialisePairsPage(){
+  appState.showPairingsList=true;
 }
 //RENDER
-function render(state){
+function render(){
     let presentPairingsList='';
     let htmlDisplay='';
     let dailyExpectedRating=''; //This is the expected overall rating of all pairs that day
-    if(state.showPairingsList===true){
-        state.pairingsList.forEach(element => {
-            htmlDisplay += `<div class="show-admin-chart"><div class="partner-cycle-id grid">${element.cycles_id}</div><div class="partner-1-id grid">${element.id1}</div><div class="partner-2-id grid">${element.id2}</div><div class="partner-1-name grid">${element.name1}</div><div class="partner-2-name grid">${element.name2}</div><div class="partner-ratings grid">${element.rating}</div><div class="partner-rating-comments grid">${element.rating_comment}</div></div>`
+    if(appState.showPairingsList===true){
+      appState.pairingsList.forEach(element => {
+        htmlDisplay += `<div class="show-admin-chart"><div class="partner-cycle-id grid">${element.cycles_id}</div><div class="partner-1-id grid">${element.id1}</div><div class="partner-2-id grid">${element.id2}</div><div class="partner-1-name grid">${element.name1}</div><div class="partner-2-name grid">${element.name2}</div><div class="partner-ratings grid">${element.rating}</div><div class="partner-rating-comments grid">${element.rating_comment}</div></div>`
     }); 
     $('.admin-dashboard-chart').html(htmlDisplay);
   }
