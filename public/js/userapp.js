@@ -59,7 +59,7 @@ function eventHandlers(){
       contentType: 'application/json',
       data: JSON.stringify(data),
       success: function(json){
-        console.log(json);
+        // console.log(json);
       },
     });
     appState.pairingsList.forEach(element=>{
@@ -77,7 +77,7 @@ function eventHandlers(){
       type: 'delete',
       contentType: 'application/json',
       success: function(json){
-        console.log(json);
+        // console.log(json);
       }
     });
     appState.pairingsList.forEach(element =>{
@@ -96,15 +96,11 @@ function getContents(){
     type: 'GET',
     dataType: 'json',
     success: function(json){
-      //console.log("These are the pairings: " + json);
-      //console.log(json);
       appState.pairingsList=json;
       render(appState);
     },
-       
   });
 }
-
 //RUN THIS CUTENESS
 $(function(){
   eventHandlers();
