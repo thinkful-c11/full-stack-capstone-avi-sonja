@@ -45,7 +45,6 @@ app.get('/todays_pairs', (req, res)=>{
    .from('set_of_pairs')
    .where('current', 'true')
    .then(results => {
-     console.log(results[0]);
      return knex('pairings').select('name1', 'name2')
             .whereIn('id', [results[0].pair1, results[0].pair2, results[0].pair3])
             //.then(res2 => (Object.assign({'expected_rating':results[0].expected_rating},res2)))
@@ -59,7 +58,6 @@ app.get('/todays_pairs/:id', (req, res)=>{
    .from('set_of_pairs')
    .where('id', req.params.id)
    .then(results => {
-     console.log(results[0]);
      return knex('pairings').select('name1', 'name2')
             .whereIn('id', [results[0].pair1, results[0].pair2, results[0].pair3])
             //.then(res2 => (Object.assign({'expected_rating':results[0].expected_rating},res2)))
@@ -75,7 +73,6 @@ app.get('/admin/todays_pairs/', (req, res)=>{
    .from('set_of_pairs')
    .where('current', 'true')
    .then(results => {
-     console.log(results[0]);
      return knex('pairings')
             .whereIn('id', [results[0].pair1, results[0].pair2, results[0].pair3])
             //.then(res2 => (Object.assign({'expected_rating':results[0].expected_ratres2)))
@@ -89,7 +86,6 @@ app.get('/admin/todays_pairs/:id', (req, res)=>{
    .from('set_of_pairs')
    .where('id', req.params.id)
    .then(results => {
-     console.log(results[0]);
      return knex('pairings').whereIn('id', [results[0].pair1, results[0].pair2, results[0].pair3])
             //.then(res2 => (Object.assign({'expected_rating':results[0].expected_rating},res2)))
             .then(res3 => res.json(res3));
@@ -104,7 +100,6 @@ app.post('/cohort_members', jsonParser, (req,res)=>{
     res.status(400).send();
   }
   else{
-    //console.log(req.body);
     knex('cohort_members').insert(req.body)
         .returning(['id','first_name', 'last_name', 'cohort_id', 'location', 'active'])
         .then(results => res.json(results));
@@ -155,7 +150,6 @@ function runServer(database = DATABASE, port = PORT) {
 function closeServer() {
   return knex.destroy().then(() => {
     return new Promise((resolve, reject) => {
-      console.log('Closing servers');
       server.close(err => {
         if (err) {
           return reject(err);
@@ -174,5 +168,3 @@ if (require.main === module) {
 }
 
 module.exports = { app, runServer, closeServer };
-
-//app.listen(PORT || 8080,function(){console.log("This is now listening");});}
