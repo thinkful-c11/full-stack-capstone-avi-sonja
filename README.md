@@ -2,81 +2,42 @@
 
 Our project allows administrators and project managers the ability to easily add and update student information while tracking student pairings. We aim to simplify the task of managing students to administrators, project managers, mentors,and so on, by various dashboards and splash pages for students to view their daily pairing.
 
-## How to use
-
-Take a look at our demo to see how we do things.
-
-* Home page with pairings (<a href="https://pacific-scrubland-37773.herokuapp.com/index.html">here</a>)
-* Dashboard with links to other dashboards (<a href="https://pacific-scrubland-37773.herokuapp.com/dashboard/dashboard.html">here</a>)
-
 ## What is this?
 
-This is a full-stack web app created by two full-time Thinkful students, Sonja and Avi, made with love for our project managers to simplify their life when it comes to creating and showing daily pairs. Students can view their daily pair for the day on one page. Future implementations include a login for administrators, project managers, mentors, and TA's, with distinct separation of privilege and accessibility to access dashboards. Administrators and project managers can add, remove, or update student information. Mentors and TA's are able to add comments and notes to each daily pairing.
+This is a full-stack web app created by two former full-time Thinkful students, Sonja and Avi, made with love for our project managers to simplify their life when it comes to creating and showing daily pairs. 
 
-## Features
+Students can view their daily pair for the day on one page. Administrators and project managers can add, remove, or update student information. Mentors and TA's are able to add comments and notes to each daily pairing.
 
-We currently feature the ability to add, update, or remove students which can be viewed in our demo <a href="https://pacific-scrubland-37773.herokuapp.com/dashboard/manage-students.html">here</a>.
+## What runs Cohort of Thrones with Rabbits in Wonderland?
+* [PostgreSQL](https://www.postgresql.org/) - A SQL database
+* [Express](http://expressjs.com/) - A minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications
+* [Node.js](https://nodejs.org/en/) - Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine that allows developers to easily build scalable network applications
+* [js-combinatorics](https://github.com/dankogai/js-combinatorics) - Simple combinatorics like power set, combination, and permutation in JavaScript
 
-## API documentation
+## Known issues & plans for the future
+* SQL injection honeypot (joking it's not) joy!
+* Need to fully implement our actual randomising algorithm in
+* Include a login for administrators, project managers, mentors, and TA's, with distinct separation of privilege and accessibility to access dashboards
 
-//GET all students from the cohort table
-* '/cohort_members'
+## Getting started
+```
+# Clone the most recent repo
+https://github.com/Avizc/cohort-of-thrones-with-rabbits-in-wonderland.git
 
-//GET all active students from the cohort table
-* '/cohort_members/active'
+# Open our repo on your local machine!
+cd cohort-of-thrones-with-rabbits-in-wonderland
 
-//GET all active students in a cohort by cohort id
-* '/cohort_members/:cid'
+# Install all of our dependencies, this does require a pre-req of having Node.js installed
+npm install
 
-//GET an individual student by ID
-* '/cohort_members/indiv/:id'
+# Now you're going to want to create a .env file for our database URLs
+export DATABASE_URL=''
+export TEST_DATABASE_URL=''
 
-//GET the set of pairings for today's pairing
-* '/todays_pairs'
+# Huzzah now lets run this cuteness!
+npm start
+```
+## Useful links
 
-//GET the pairing by ID of set of pairs
-* /todays_pairs/:id'
-
-//GET the current day's pairing with all info in the database
-* '/admin/todays_pairs/'
-
-//GET the pairing by ID of set of pairs with all data in the database
-* '/admin/todays_pairs/:id'
-
-//POST a new member to the cohort table 
-//curently has the cohort ID hardcoded to be part
-//of the current cohort test data
-* '/cohort_members'
-
-//Can update the location of a cohort member by id
-* '/cohort_members/:id'
-
-// DELETE - softly
-* '/cohort_members/:id'
-
-## Summary
-
-Allows you to look at daily pairings as a regular user. For instructors/TAs/mentors be able to view daily pairings with meta data. For admins and project managers add, update, and delete users.
-
-## Technology used
-
-Front-end technologies
-* Custom grid.css format, jQuery
-
-Server technologies
-* NodeJS (Express, Mocha/Chai, js-combinatorics)
-
-Data Persistence
-* PostgreSQL with Knex
-
-CICD
-* Travis CI & Heroku
-
-Development Environment
-* Visual Studio Code, Google Chrome, Postman
-
-## Links
-
-Heroku deployment
-* Home page with pairings (<a href="https://pacific-scrubland-37773.herokuapp.com/index.html">here</a>)
-* Dashboard with links to other dashboards (<a href="https://pacific-scrubland-37773.herokuapp.com/dashboard/dashboard.html">here</a>)
+[Home page with pairings](https://pacific-scrubland-37773.herokuapp.com/index.html)
+[Dashboards demo](https://pacific-scrubland-37773.herokuapp.com/dashboard/dashboard.html)
